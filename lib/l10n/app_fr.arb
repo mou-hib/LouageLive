@@ -1,0 +1,23 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Louage Live",
+  "@appTitle": { "description": "Nom de l'application" },
+  "login": "Connexion",
+  "@login": { "description": "Titre de l'écran de connexion" },
+  "logout": "Se déconnecter",
+  "email": "E-mail",
+  "password": "Mot de passe",
+  "signIn": "Se connecter",
+  "@signIn": { "description": "Bouton de connexion" },
+  "voyageurHomeTitle": "Espace voyageur",
+  "chauffeurHomeTitle": "Espace chauffeur",
+  "agentHomeTitle": "Espace agent de station",
+  "adminHomeTitle": "Administration",
+  "changeLanguage": "Changer de langue",
+  "genericError": "Une erreur est survenue. Veuillez réessayer.",
+  "loginFailed": "E-mail ou mot de passe incorrect.",
+  "fieldRequired": "Ce champ est obligatoire.",
+  "comingSoon": "Les fonctionnalités arrivent dans les prochains sprints.",
+  "configMissing": "Configuration Supabase manquante. Lancez l'application avec --dart-define-from-file=config/env.json (voir README).",
+  "@configMissing": { "description": "Affiché si SUPABASE_URL ou SUPABASE_ANON_KEY est vide" }
+}

@@ -55,6 +55,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get comingSoon => 'ستتوفر الميزات في المراحل القادمة.';
 
   @override
+  String get retry => 'إعادة المحاولة';
+
+  @override
+  String get profileErrorGeneric =>
+      'تعذّر تحميل ملفك الشخصي. أعد المحاولة أو اتصل بالمسؤول.';
+
+  @override
+  String get profileErrorNetwork =>
+      'تعذّر تحميل ملفك الشخصي. تحقّق من اتصالك بالإنترنت.';
+
+  @override
   String get configMissing =>
       'إعدادات Supabase مفقودة. شغّل التطبيق باستعمال ‎--dart-define-from-file=config/env.json (راجع README).';
 }

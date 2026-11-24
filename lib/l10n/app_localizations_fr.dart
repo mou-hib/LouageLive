@@ -56,6 +56,17 @@ class AppLocalizationsFr extends AppLocalizations {
       'Les fonctionnalités arrivent dans les prochains sprints.';
 
   @override
+  String get retry => 'Réessayer';
+
+  @override
+  String get profileErrorGeneric =>
+      'Impossible de charger votre profil. Réessayez ou contactez l\'administrateur.';
+
+  @override
+  String get profileErrorNetwork =>
+      'Impossible de charger votre profil. Vérifiez votre connexion internet.';
+
+  @override
   String get configMissing =>
       'Configuration Supabase manquante. Lancez l\'application avec --dart-define-from-file=config/env.json (voir README).';
 }

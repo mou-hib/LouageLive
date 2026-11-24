@@ -188,6 +188,24 @@ abstract class AppLocalizations {
   /// **'Les fonctionnalités arrivent dans les prochains sprints.'**
   String get comingSoon;
 
+  /// Bouton qui relance le chargement du profil
+  ///
+  /// In fr, this message translates to:
+  /// **'Réessayer'**
+  String get retry;
+
+  /// Écran d'erreur : profil introuvable, invalide ou erreur serveur
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible de charger votre profil. Réessayez ou contactez l\'administrateur.'**
+  String get profileErrorGeneric;
+
+  /// Écran d'erreur : pas de réseau ou délai dépassé
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible de charger votre profil. Vérifiez votre connexion internet.'**
+  String get profileErrorNetwork;
+
   /// Affiché si SUPABASE_URL ou SUPABASE_ANON_KEY est vide
   ///
   /// In fr, this message translates to:

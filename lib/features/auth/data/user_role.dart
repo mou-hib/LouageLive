@@ -1,4 +1,7 @@
-/// Application roles (BNF-6). Values match `profiles.role` in Supabase.
+import 'profil_exception.dart';
+
+/// Application roles (BNF-6). Values match the `role_utilisateur` enum
+/// used by `public.profils.role` in Supabase.
 enum UserRole {
   voyageur,
   chauffeur,
@@ -8,10 +11,14 @@ enum UserRole {
   /// Home route of the role, e.g. `/chauffeur`.
   String get homePath => '/$name';
 
-  /// Unknown or null values fall back to [UserRole.voyageur]
-  /// (least privileged role).
-  static UserRole fromValue(String? value) => UserRole.values.firstWhere(
-    (r) => r.name == value,
-    orElse: () => UserRole.voyageur,
-  );
+  /// Parses a `profils.role` value.
+  ///
+  /// Throws [ProfilInvalide] for null or unknown values: there is no
+  /// default role.
+  static UserRole fromValue(String? value) {
+    for (final role in UserRole.values) {
+      if (role.name == value) return role;
+    }
+    throw ProfilInvalide('Unknown role: $value');
+  }
 }

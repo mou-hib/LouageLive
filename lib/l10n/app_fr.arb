@@ -18,6 +18,12 @@
   "loginFailed": "E-mail ou mot de passe incorrect.",
   "fieldRequired": "Ce champ est obligatoire.",
   "comingSoon": "Les fonctionnalités arrivent dans les prochains sprints.",
+  "retry": "Réessayer",
+  "@retry": { "description": "Bouton qui relance le chargement du profil" },
+  "profileErrorGeneric": "Impossible de charger votre profil. Réessayez ou contactez l'administrateur.",
+  "@profileErrorGeneric": { "description": "Écran d'erreur : profil introuvable, invalide ou erreur serveur" },
+  "profileErrorNetwork": "Impossible de charger votre profil. Vérifiez votre connexion internet.",
+  "@profileErrorNetwork": { "description": "Écran d'erreur : pas de réseau ou délai dépassé" },
   "configMissing": "Configuration Supabase manquante. Lancez l'application avec --dart-define-from-file=config/env.json (voir README).",
   "@configMissing": { "description": "Affiché si SUPABASE_URL ou SUPABASE_ANON_KEY est vide" }
 }

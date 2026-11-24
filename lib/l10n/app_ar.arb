@@ -15,5 +15,8 @@
   "loginFailed": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
   "fieldRequired": "هذا الحقل إجباري.",
   "comingSoon": "ستتوفر الميزات في المراحل القادمة.",
+  "retry": "إعادة المحاولة",
+  "profileErrorGeneric": "تعذّر تحميل ملفك الشخصي. أعد المحاولة أو اتصل بالمسؤول.",
+  "profileErrorNetwork": "تعذّر تحميل ملفك الشخصي. تحقّق من اتصالك بالإنترنت.",
   "configMissing": "إعدادات Supabase مفقودة. شغّل التطبيق باستعمال ‎--dart-define-from-file=config/env.json (راجع README)."
 }

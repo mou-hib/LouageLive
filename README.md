@@ -82,4 +82,4 @@ Tous les textes affichés passent par les fichiers ARB (`AppLocalizations.of(con
   (les numéros d'issues correspondent aux numéros d'US).
 - Messages de commit courts, à l'impératif : `Ajoute l'écran de connexion`.
 
-Voir `CLAUDE.md` pour le contexte complet du projet (modèle du domaine, règles non négociables).
+

@@ -10,6 +10,7 @@ import '../../features/auth/presentation/profile_error_screen.dart';
 import '../../features/auth/presentation/signup_screen.dart';
 import '../../features/auth/presentation/splash_screen.dart';
 import '../../features/chauffeur/presentation/chauffeur_home_screen.dart';
+import '../../features/chauffeur/presentation/scanner_screen.dart';
 import '../../features/voyageur/presentation/voyageur_home_screen.dart';
 
 abstract final class AppRoutes {
@@ -17,12 +18,14 @@ abstract final class AppRoutes {
   static const login = '/login';
   static const signUp = '/inscription';
   static const profileError = '/erreur-profil';
+  static const chauffeurScanner = '/chauffeur/scanner';
 }
 
 /// Redirect rules (BNF-6, UI side only — RLS is the real protection):
 /// - session/role loading → splash
 /// - not signed in → /login, or /inscription (only reachable signed out)
-/// - signed in → the home of the user's role, and only that one.
+/// - signed in → the home of the user's role (and its sub-pages, e.g.
+///   /chauffeur/scanner), and only that one.
 /// - profile not loadable → error screen (never a default role). A
 ///   signed-in status without a role is treated the same way.
 String? redirectFor(AuthStatus status, UserRole? role, String location) {
@@ -35,7 +38,8 @@ String? redirectFor(AuthStatus status, UserRole? role, String location) {
     AuthStatus.profileError => AppRoutes.profileError,
     AuthStatus.signedIn => role?.homePath ?? AppRoutes.profileError,
   };
-  return location == target ? null : target;
+  final allowed = location == target || location.startsWith('$target/');
+  return allowed ? null : target;
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -69,6 +73,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: UserRole.chauffeur.homePath,
         builder: (context, state) => const ChauffeurHomeScreen(),
+        routes: [
+          GoRoute(
+            path: 'scanner',
+            builder: (context, state) => const ScannerScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: UserRole.agent.homePath,

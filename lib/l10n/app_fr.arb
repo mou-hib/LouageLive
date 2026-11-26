@@ -59,6 +59,46 @@
   "checkEmailSentTo": "Nous avons envoyé un lien de confirmation à :",
   "checkEmailNextStep": "Ouvrez ce lien pour activer votre compte, puis connectez-vous.",
   "backToLogin": "Retour à la connexion",
+  "chauffeurNoLouage": "Aucun louage associé, contactez l'agent de station.",
+  "@chauffeurNoLouage": { "description": "C1 : le chauffeur n'a pas de louage actif" },
+  "louageCapacite": "Capacité : {capacite, plural, =1{1 place} other{{capacite} places}}",
+  "@louageCapacite": {
+    "description": "C1 : capacité du louage",
+    "placeholders": { "capacite": { "type": "int" } }
+  },
+  "chauffeurInQueue": "Vous êtes dans la file : {station} → {ville}",
+  "@chauffeurInQueue": {
+    "description": "C1 : le louage est déjà dans une file",
+    "placeholders": { "station": { "type": "String" }, "ville": { "type": "String" } }
+  },
+  "scanStationQr": "Scanner le QR de la station",
+  "@scanStationQr": { "description": "C1 : bouton principal, et titre de C2" },
+  "scannerHint": "Placez le QR code de la station dans le cadre.",
+  "torchOn": "Allumer la lampe",
+  "torchOff": "Éteindre la lampe",
+  "cameraPermissionDenied": "Autorisez l'accès à la caméra pour scanner le QR de la station.",
+  "@cameraPermissionDenied": { "description": "C2 : permission caméra refusée" },
+  "openSettings": "Ouvrir les réglages",
+  "cameraUnavailable": "Impossible d'utiliser la caméra sur cet appareil.",
+  "chooseLine": "Choisissez votre ligne",
+  "noActiveLine": "Aucune ligne active dans cette station.",
+  "tarifDt": "{tarif} DT",
+  "@tarifDt": {
+    "description": "Tarif officiel en dinars tunisiens",
+    "placeholders": { "tarif": { "type": "String" } }
+  },
+  "joinQueueConfirm": "Rejoindre la file {station} → {ville} ?",
+  "@joinQueueConfirm": {
+    "description": "C2 : dialogue de confirmation",
+    "placeholders": { "station": { "type": "String" }, "ville": { "type": "String" } }
+  },
+  "cancel": "Annuler",
+  "joinQueue": "Rejoindre",
+  "joinedQueue": "Vous avez rejoint la file.",
+  "fileErrAccesRefuse": "Seuls les chauffeurs peuvent rejoindre une file.",
+  "fileErrAucunLouage": "Aucun louage actif n'est associé à votre compte.",
+  "fileErrQrInvalide": "QR code non reconnu. Scannez le QR de la station.",
+  "fileErrDejaEnFile": "Votre louage est déjà dans une file.",
   "comingSoon": "Les fonctionnalités arrivent dans les prochains sprints.",
   "retry": "Réessayer",
   "@retry": { "description": "Bouton qui relance le chargement du profil" },

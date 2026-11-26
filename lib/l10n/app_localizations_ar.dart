@@ -52,6 +52,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get fieldRequired => 'هذا الحقل إجباري.';
 
   @override
+  String get emailInvalid => 'عنوان البريد الإلكتروني غير صالح.';
+
+  @override
+  String get loginEmailNotConfirmed => 'عنوان البريد الإلكتروني غير مؤكَّد.';
+
+  @override
+  String get loginTooManyAttempts =>
+      'محاولات كثيرة جدًا، أعد المحاولة بعد قليل.';
+
+  @override
+  String get loginNetworkError => 'لا يوجد اتصال بالإنترنت.';
+
+  @override
   String get comingSoon => 'ستتوفر الميزات في المراحل القادمة.';
 
   @override

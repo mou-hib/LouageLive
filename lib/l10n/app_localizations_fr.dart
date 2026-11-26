@@ -52,6 +52,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get fieldRequired => 'Ce champ est obligatoire.';
 
   @override
+  String get emailInvalid => 'Adresse e-mail invalide.';
+
+  @override
+  String get loginEmailNotConfirmed => 'Adresse e-mail non confirmée.';
+
+  @override
+  String get loginTooManyAttempts =>
+      'Trop de tentatives, réessayez dans un moment.';
+
+  @override
+  String get loginNetworkError => 'Pas de connexion internet.';
+
+  @override
   String get comingSoon =>
       'Les fonctionnalités arrivent dans les prochains sprints.';
 

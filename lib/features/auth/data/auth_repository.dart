@@ -8,6 +8,16 @@ import '../../../core/network/network_error.dart';
 import 'login_error.dart';
 import 'profil.dart';
 import 'profil_exception.dart';
+import 'sign_up_error.dart';
+
+/// Result of a successful [AuthRepository.signUp].
+enum SignUpOutcome {
+  /// A session was created: the router sends the voyageur to their home.
+  connecte,
+
+  /// E-mail confirmation is on: no session until the link is opened.
+  confirmationEmail,
+}
 
 /// Access to Supabase Auth and to the current user's profile.
 class AuthRepository {
@@ -32,6 +42,34 @@ class AuthRepository {
     } catch (e, st) {
       Error.throwWithStackTrace(
         LoginException(classifyLoginError(e, st), e),
+        st,
+      );
+    }
+  }
+
+  /// Creates a voyageur account. The `on_auth_user_created` trigger copies
+  /// `nom`, `prenom`, `telephone` into `profils`, with role `voyageur`.
+  ///
+  /// Throws a [SignUpException] whose [SignUpError] says why it failed.
+  Future<SignUpOutcome> signUp({
+    required String email,
+    required String password,
+    required String nom,
+    required String prenom,
+    required String telephone,
+  }) async {
+    try {
+      final response = await _client.auth
+          .signUp(
+            email: email,
+            password: password,
+            data: {'nom': nom, 'prenom': prenom, 'telephone': telephone},
+          )
+          .timeout(requestTimeout);
+      return signUpOutcomeOf(response);
+    } catch (e, st) {
+      Error.throwWithStackTrace(
+        SignUpException(classifySignUpError(e, st), e),
         st,
       );
     }
@@ -82,4 +120,19 @@ ProfilException classifyProfilError(Object error, StackTrace stackTrace) {
     stackTrace: stackTrace,
   );
   return ProfilErreurInconnue(error);
+}
+
+/// Reads a `signUp` response.
+///
+/// With e-mail confirmation on, Supabase does not return an error for an
+/// address that already has an account: it returns a user with no
+/// identities and no session (anti-enumeration). Reported as
+/// [SignUpError.compteExistant], otherwise the user would wait for an
+/// e-mail that never comes.
+SignUpOutcome signUpOutcomeOf(AuthResponse response) {
+  if (response.session != null) return SignUpOutcome.connecte;
+  if (response.user?.identities?.isEmpty ?? false) {
+    throw const SignUpException(SignUpError.compteExistant);
+  }
+  return SignUpOutcome.confirmationEmail;
 }

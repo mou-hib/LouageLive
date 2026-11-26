@@ -206,6 +206,132 @@ abstract class AppLocalizations {
   /// **'Pas de connexion internet.'**
   String get loginNetworkError;
 
+  /// Titre de l'écran d'inscription (B1) et bouton d'envoi
+  ///
+  /// In fr, this message translates to:
+  /// **'Créer un compte'**
+  String get createAccount;
+
+  /// Lien de l'écran de connexion vers l'inscription
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas encore de compte ? Créer un compte'**
+  String get noAccountCreateOne;
+
+  /// Note sous la connexion : seuls les voyageurs s'inscrivent eux-mêmes
+  ///
+  /// In fr, this message translates to:
+  /// **'Chauffeurs et agents : votre compte est créé par l\'administrateur.'**
+  String get staffAccountNote;
+
+  /// Lien de l'inscription vers la connexion
+  ///
+  /// In fr, this message translates to:
+  /// **'Déjà un compte ? Se connecter'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @firstName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Prénom'**
+  String get firstName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom'**
+  String get lastName;
+
+  /// No description provided for @phone.
+  ///
+  /// In fr, this message translates to:
+  /// **'Téléphone'**
+  String get phone;
+
+  /// Exemple sous le champ téléphone
+  ///
+  /// In fr, this message translates to:
+  /// **'Ex. 98 123 456'**
+  String get phoneHint;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In fr, this message translates to:
+  /// **'Confirmer le mot de passe'**
+  String get confirmPassword;
+
+  /// No description provided for @showPassword.
+  ///
+  /// In fr, this message translates to:
+  /// **'Afficher le mot de passe'**
+  String get showPassword;
+
+  /// No description provided for @hidePassword.
+  ///
+  /// In fr, this message translates to:
+  /// **'Masquer le mot de passe'**
+  String get hidePassword;
+
+  /// No description provided for @phoneInvalid.
+  ///
+  /// In fr, this message translates to:
+  /// **'Numéro invalide : 8 chiffres, +216 facultatif.'**
+  String get phoneInvalid;
+
+  /// Validation : mot de passe trop court
+  ///
+  /// In fr, this message translates to:
+  /// **'Au moins {min} caractères.'**
+  String passwordTooShort(int min);
+
+  /// No description provided for @passwordsDontMatch.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les mots de passe ne correspondent pas.'**
+  String get passwordsDontMatch;
+
+  /// Inscription refusée : e-mail déjà utilisé
+  ///
+  /// In fr, this message translates to:
+  /// **'Un compte existe déjà avec cet e-mail.'**
+  String get signUpEmailExists;
+
+  /// Inscription refusée par Supabase : weak_password
+  ///
+  /// In fr, this message translates to:
+  /// **'Mot de passe trop faible (6 caractères minimum).'**
+  String get signUpWeakPassword;
+
+  /// Inscription refusée : limite d'envoi d'e-mails (429)
+  ///
+  /// In fr, this message translates to:
+  /// **'Trop de tentatives, réessayez plus tard.'**
+  String get signUpTooManyAttempts;
+
+  /// Après inscription quand la confirmation par e-mail est activée
+  ///
+  /// In fr, this message translates to:
+  /// **'Vérifiez votre e-mail'**
+  String get checkEmailTitle;
+
+  /// No description provided for @checkEmailSentTo.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nous avons envoyé un lien de confirmation à :'**
+  String get checkEmailSentTo;
+
+  /// No description provided for @checkEmailNextStep.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ouvrez ce lien pour activer votre compte, puis connectez-vous.'**
+  String get checkEmailNextStep;
+
+  /// No description provided for @backToLogin.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour à la connexion'**
+  String get backToLogin;
+
   /// No description provided for @comingSoon.
   ///
   /// In fr, this message translates to:

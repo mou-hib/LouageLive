@@ -15,11 +15,14 @@ import 'package:louage_live/features/auth/data/profil.dart';
 import 'package:louage_live/features/auth/data/profil_exception.dart';
 import 'package:louage_live/features/auth/data/user_role.dart';
 import 'package:louage_live/features/auth/logic/auth_providers.dart';
-import 'package:louage_live/features/auth/logic/login_validators.dart';
+import 'package:louage_live/features/auth/logic/auth_validators.dart';
 import 'package:louage_live/features/auth/presentation/login_screen.dart';
 import 'package:louage_live/features/auth/presentation/profile_error_screen.dart';
 import 'package:louage_live/l10n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
+
+import 'support/fake_auth_repository.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
     show
@@ -27,10 +30,7 @@ import 'package:supabase_flutter/supabase_flutter.dart'
         AuthChangeEvent,
         AuthException,
         AuthRetryableFetchException,
-        AuthState,
-        PostgrestException,
-        Session,
-        User;
+        PostgrestException;
 
 Future<ProviderContainer> _pumpLogin(WidgetTester tester) async {
   SharedPreferences.setMockInitialValues({});
@@ -91,6 +91,24 @@ void main() {
         '/login',
       );
       expect(redirectFor(AuthStatus.signedOut, null, '/login'), isNull);
+    });
+
+    test('/inscription is reachable only when signed out', () {
+      expect(redirectFor(AuthStatus.signedOut, null, '/inscription'), isNull);
+      expect(
+        redirectFor(AuthStatus.loading, null, '/inscription'),
+        '/chargement',
+      );
+      expect(
+        redirectFor(AuthStatus.profileError, null, '/inscription'),
+        '/erreur-profil',
+      );
+      for (final role in UserRole.values) {
+        expect(
+          redirectFor(AuthStatus.signedIn, role, '/inscription'),
+          role.homePath,
+        );
+      }
     });
 
     test('loading goes to splash', () {
@@ -189,7 +207,7 @@ void main() {
 
   group('AuthSession', () {
     test('profile error, then retry succeeds', () async {
-      final repo = _FakeAuthRepository()
+      final repo = FakeAuthRepository()
         ..next = () => throw const ProfilErreurReseau();
       final session = AuthSession(repo);
       addTearDown(session.dispose);
@@ -212,7 +230,7 @@ void main() {
     });
 
     test('missing profile is a profile error, not voyageur', () async {
-      final repo = _FakeAuthRepository()
+      final repo = FakeAuthRepository()
         ..next = () => throw const ProfilIntrouvable();
       final session = AuthSession(repo);
       addTearDown(session.dispose);
@@ -224,7 +242,7 @@ void main() {
     });
 
     test('no session is signed out', () async {
-      final repo = _FakeAuthRepository()..hasSession = false;
+      final repo = FakeAuthRepository()..hasSession = false;
       final session = AuthSession(repo);
       addTearDown(session.dispose);
 
@@ -346,7 +364,7 @@ void main() {
   ) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
-    final repo = _FakeAuthRepository()..signInError = LoginError.reseau;
+    final repo = FakeAuthRepository()..signInError = LoginError.reseau;
     final container = ProviderContainer(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(prefs),
@@ -409,7 +427,7 @@ void main() {
   ) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
-    final repo = _FakeAuthRepository()..next = () => throw StateError('bug');
+    final repo = FakeAuthRepository()..next = () => throw StateError('bug');
     final container = ProviderContainer(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(prefs),
@@ -445,7 +463,7 @@ void main() {
   ) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
-    final repo = _FakeAuthRepository()
+    final repo = FakeAuthRepository()
       ..next = () => throw const ProfilIntrouvable();
     final container = ProviderContainer(
       overrides: [
@@ -486,47 +504,4 @@ void main() {
     await tester.tap(find.text('Se déconnecter'));
     expect(repo.signOutCalls, 1);
   });
-}
-
-/// AuthRepository without Supabase: [next] decides what getProfil returns.
-class _FakeAuthRepository implements AuthRepository {
-  final _events = StreamController<AuthState>.broadcast();
-  bool hasSession = true;
-  Future<Profil> Function() next = () async =>
-      const Profil(id: 'u1', role: UserRole.voyageur, doitChangerMdp: false);
-  int signOutCalls = 0;
-
-  void emit(AuthChangeEvent event) => _events.add(AuthState(event, null));
-
-  @override
-  Stream<AuthState> authStateChanges() => _events.stream;
-
-  @override
-  Session? get currentSession => hasSession
-      ? Session(
-          accessToken: 'token',
-          tokenType: 'bearer',
-          user: const User(
-            id: 'u1',
-            appMetadata: {},
-            userMetadata: {},
-            aud: 'authenticated',
-            createdAt: '2026-01-01T00:00:00Z',
-          ),
-        )
-      : null;
-
-  @override
-  Future<Profil> getProfil() => next();
-
-  /// When set, signIn fails with this error.
-  LoginError? signInError;
-
-  @override
-  Future<void> signIn({required String email, required String password}) async {
-    if (signInError case final error?) throw LoginException(error);
-  }
-
-  @override
-  Future<void> signOut() async => signOutCalls++;
 }

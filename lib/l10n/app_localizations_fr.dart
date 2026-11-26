@@ -65,6 +65,76 @@ class AppLocalizationsFr extends AppLocalizations {
   String get loginNetworkError => 'Pas de connexion internet.';
 
   @override
+  String get createAccount => 'Créer un compte';
+
+  @override
+  String get noAccountCreateOne => 'Pas encore de compte ? Créer un compte';
+
+  @override
+  String get staffAccountNote =>
+      'Chauffeurs et agents : votre compte est créé par l\'administrateur.';
+
+  @override
+  String get alreadyHaveAccount => 'Déjà un compte ? Se connecter';
+
+  @override
+  String get firstName => 'Prénom';
+
+  @override
+  String get lastName => 'Nom';
+
+  @override
+  String get phone => 'Téléphone';
+
+  @override
+  String get phoneHint => 'Ex. 98 123 456';
+
+  @override
+  String get confirmPassword => 'Confirmer le mot de passe';
+
+  @override
+  String get showPassword => 'Afficher le mot de passe';
+
+  @override
+  String get hidePassword => 'Masquer le mot de passe';
+
+  @override
+  String get phoneInvalid => 'Numéro invalide : 8 chiffres, +216 facultatif.';
+
+  @override
+  String passwordTooShort(int min) {
+    return 'Au moins $min caractères.';
+  }
+
+  @override
+  String get passwordsDontMatch => 'Les mots de passe ne correspondent pas.';
+
+  @override
+  String get signUpEmailExists => 'Un compte existe déjà avec cet e-mail.';
+
+  @override
+  String get signUpWeakPassword =>
+      'Mot de passe trop faible (6 caractères minimum).';
+
+  @override
+  String get signUpTooManyAttempts =>
+      'Trop de tentatives, réessayez plus tard.';
+
+  @override
+  String get checkEmailTitle => 'Vérifiez votre e-mail';
+
+  @override
+  String get checkEmailSentTo =>
+      'Nous avons envoyé un lien de confirmation à :';
+
+  @override
+  String get checkEmailNextStep =>
+      'Ouvrez ce lien pour activer votre compte, puis connectez-vous.';
+
+  @override
+  String get backToLogin => 'Retour à la connexion';
+
+  @override
   String get comingSoon =>
       'Les fonctionnalités arrivent dans les prochains sprints.';
 

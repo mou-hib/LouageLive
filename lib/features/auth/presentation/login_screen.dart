@@ -1,11 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/l10n/language_switch_button.dart';
+import '../../../core/router/app_router.dart';
 import '../../../l10n/app_localizations.dart';
 import '../data/login_error.dart';
 import '../logic/auth_providers.dart';
-import '../logic/login_validators.dart';
+import '../logic/auth_validators.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -113,6 +115,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               child: CircularProgressIndicator(strokeWidth: 3),
                             )
                           : Text(l10n.signIn),
+                    ),
+                    const SizedBox(height: 16),
+                    TextButton(
+                      onPressed: _submitting
+                          ? null
+                          : () => context.go(AppRoutes.signUp),
+                      child: Text(l10n.noAccountCreateOne),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      l10n.staffAccountNote,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),

@@ -7,6 +7,7 @@ import '../../features/auth/data/user_role.dart';
 import '../../features/auth/logic/auth_providers.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/profile_error_screen.dart';
+import '../../features/auth/presentation/signup_screen.dart';
 import '../../features/auth/presentation/splash_screen.dart';
 import '../../features/chauffeur/presentation/chauffeur_home_screen.dart';
 import '../../features/voyageur/presentation/voyageur_home_screen.dart';
@@ -14,16 +15,20 @@ import '../../features/voyageur/presentation/voyageur_home_screen.dart';
 abstract final class AppRoutes {
   static const splash = '/chargement';
   static const login = '/login';
+  static const signUp = '/inscription';
   static const profileError = '/erreur-profil';
 }
 
 /// Redirect rules (BNF-6, UI side only — RLS is the real protection):
 /// - session/role loading → splash
-/// - not signed in → /login
+/// - not signed in → /login, or /inscription (only reachable signed out)
 /// - signed in → the home of the user's role, and only that one.
 /// - profile not loadable → error screen (never a default role). A
 ///   signed-in status without a role is treated the same way.
 String? redirectFor(AuthStatus status, UserRole? role, String location) {
+  if (status == AuthStatus.signedOut && location == AppRoutes.signUp) {
+    return null;
+  }
   final target = switch (status) {
     AuthStatus.loading => AppRoutes.splash,
     AuthStatus.signedOut => AppRoutes.login,
@@ -48,6 +53,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.login,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.signUp,
+        builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
         path: AppRoutes.profileError,

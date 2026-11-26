@@ -182,6 +182,30 @@ abstract class AppLocalizations {
   /// **'Ce champ est obligatoire.'**
   String get fieldRequired;
 
+  /// Validation du champ e-mail (format)
+  ///
+  /// In fr, this message translates to:
+  /// **'Adresse e-mail invalide.'**
+  String get emailInvalid;
+
+  /// Connexion refusée : e-mail pas encore confirmé
+  ///
+  /// In fr, this message translates to:
+  /// **'Adresse e-mail non confirmée.'**
+  String get loginEmailNotConfirmed;
+
+  /// Connexion refusée : limite de tentatives (429)
+  ///
+  /// In fr, this message translates to:
+  /// **'Trop de tentatives, réessayez dans un moment.'**
+  String get loginTooManyAttempts;
+
+  /// Connexion impossible : pas de réseau ou délai dépassé
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas de connexion internet.'**
+  String get loginNetworkError;
+
   /// No description provided for @comingSoon.
   ///
   /// In fr, this message translates to:

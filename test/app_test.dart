@@ -6,21 +6,31 @@ import 'package:louage_live/core/l10n/app_localizations_delegates.dart';
 import 'package:louage_live/core/l10n/locale_provider.dart';
 import 'package:louage_live/core/router/app_router.dart';
 
-import 'dart:io' show SocketException;
+import 'dart:io' show HandshakeException, SocketException;
 
 import 'package:http/http.dart' as http;
 import 'package:louage_live/features/auth/data/auth_repository.dart';
+import 'package:louage_live/features/auth/data/login_error.dart';
 import 'package:louage_live/features/auth/data/profil.dart';
 import 'package:louage_live/features/auth/data/profil_exception.dart';
 import 'package:louage_live/features/auth/data/user_role.dart';
 import 'package:louage_live/features/auth/logic/auth_providers.dart';
+import 'package:louage_live/features/auth/logic/login_validators.dart';
 import 'package:louage_live/features/auth/presentation/login_screen.dart';
 import 'package:louage_live/features/auth/presentation/profile_error_screen.dart';
 import 'package:louage_live/l10n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
-    show AuthChangeEvent, AuthState, PostgrestException, Session, User;
+    show
+        AuthApiException,
+        AuthChangeEvent,
+        AuthException,
+        AuthRetryableFetchException,
+        AuthState,
+        PostgrestException,
+        Session,
+        User;
 
 Future<ProviderContainer> _pumpLogin(WidgetTester tester) async {
   SharedPreferences.setMockInitialValues({});
@@ -224,6 +234,153 @@ void main() {
     });
   });
 
+  group('classifyLoginError', () {
+    final st = StackTrace.current;
+    LoginError classify(Object e) => classifyLoginError(e, st);
+
+    test('invalid_credentials → identifiantsInvalides', () {
+      expect(
+        classify(
+          const AuthApiException(
+            'Invalid login credentials',
+            statusCode: '400',
+            code: 'invalid_credentials',
+          ),
+        ),
+        LoginError.identifiantsInvalides,
+      );
+    });
+
+    test('email_not_confirmed → emailNonConfirme', () {
+      expect(
+        classify(
+          const AuthApiException(
+            'Email not confirmed',
+            statusCode: '400',
+            code: 'email_not_confirmed',
+          ),
+        ),
+        LoginError.emailNonConfirme,
+      );
+    });
+
+    test('over_request_rate_limit → tropDeTentatives', () {
+      expect(
+        classify(
+          const AuthApiException(
+            'Rate limit',
+            statusCode: '429',
+            code: 'over_request_rate_limit',
+          ),
+        ),
+        LoginError.tropDeTentatives,
+      );
+    });
+
+    test('status 429 without a known code → tropDeTentatives', () {
+      expect(
+        classify(const AuthApiException('Too many', statusCode: '429')),
+        LoginError.tropDeTentatives,
+      );
+    });
+
+    test('the code decides, not the message text', () {
+      expect(
+        classify(
+          const AuthApiException(
+            'Invalid login credentials',
+            statusCode: '400',
+            code: 'user_banned',
+          ),
+        ),
+        LoginError.inconnue,
+      );
+    });
+
+    test('transport failures → reseau', () {
+      for (final e in <Object>[
+        const SocketException('down'),
+        const HandshakeException('tls'),
+        TimeoutException('slow'),
+        http.ClientException('reset'),
+        AuthRetryableFetchException(message: 'ClientException: reset'),
+      ]) {
+        expect(classify(e), LoginError.reseau, reason: '$e');
+      }
+    });
+
+    test('server error 5xx is not a network error', () {
+      expect(
+        classify(AuthRetryableFetchException(message: 'x', statusCode: '503')),
+        LoginError.inconnue,
+      );
+    });
+
+    test('unknown AuthException code → inconnue', () {
+      expect(
+        classify(const AuthException('?', statusCode: '400', code: 'weird')),
+        LoginError.inconnue,
+      );
+    });
+
+    test('StateError → inconnue', () {
+      expect(classify(StateError('bug')), LoginError.inconnue);
+    });
+  });
+
+  group('isValidEmail', () {
+    test('accepts simple addresses', () {
+      expect(isValidEmail('a@b.tn'), isTrue);
+      expect(isValidEmail('  chauffeur.1@louage-live.tn '), isTrue);
+    });
+
+    test('rejects malformed addresses', () {
+      for (final v in ['', 'abc', 'a@b', '@b.tn', 'a b@c.tn', 'a@b.']) {
+        expect(isValidEmail(v), isFalse, reason: v);
+      }
+    });
+  });
+
+  testWidgets('Login shows the mapped error and validates the e-mail', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final repo = _FakeAuthRepository()..signInError = LoginError.reseau;
+    final container = ProviderContainer(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+        authRepositoryProvider.overrideWithValue(repo),
+      ],
+    );
+    addTearDown(container.dispose);
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          locale: const Locale('fr'),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: appLocalizationsDelegates,
+          home: const LoginScreen(),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final fields = find.byType(TextFormField);
+
+    await tester.enterText(fields.at(0), 'pas-un-email');
+    await tester.enterText(fields.at(1), 'secret');
+    await tester.tap(find.text('Se connecter'));
+    await tester.pumpAndSettle();
+    expect(find.text('Adresse e-mail invalide.'), findsOneWidget);
+
+    await tester.enterText(fields.at(0), 'voyageur@louage.tn');
+    await tester.tap(find.text('Se connecter'));
+    await tester.pumpAndSettle();
+    expect(find.text('Adresse e-mail invalide.'), findsNothing);
+    expect(find.text('Pas de connexion internet.'), findsOneWidget);
+  });
+
   test('only transport failures are classified as network errors', () {
     final st = StackTrace.current;
     for (final e in <Object>[
@@ -362,11 +519,13 @@ class _FakeAuthRepository implements AuthRepository {
   @override
   Future<Profil> getProfil() => next();
 
+  /// When set, signIn fails with this error.
+  LoginError? signInError;
+
   @override
-  Future<void> signIn({
-    required String email,
-    required String password,
-  }) async {}
+  Future<void> signIn({required String email, required String password}) async {
+    if (signInError case final error?) throw LoginException(error);
+  }
 
   @override
   Future<void> signOut() async => signOutCalls++;

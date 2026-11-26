@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' show AuthException;
 
 import '../../../core/l10n/language_switch_button.dart';
 import '../../../l10n/app_localizations.dart';
+import '../data/login_error.dart';
 import '../logic/auth_providers.dart';
+import '../logic/login_validators.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -39,10 +40,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           .read(authRepositoryProvider)
           .signIn(email: _email.text.trim(), password: _password.text);
       // Redirect is handled by the router (onAuthStateChange).
-    } on AuthException {
-      if (mounted) setState(() => _error = l10n.loginFailed);
-    } catch (_) {
-      if (mounted) setState(() => _error = l10n.genericError);
+    } on LoginException catch (e) {
+      if (mounted) setState(() => _error = loginErrorMessage(l10n, e.error));
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -53,6 +52,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final l10n = AppLocalizations.of(context);
     String? required(String? v) =>
         (v == null || v.trim().isEmpty) ? l10n.fieldRequired : null;
+    String? email(String? v) =>
+        required(v) ?? (isValidEmail(v!) ? null : l10n.emailInvalid);
 
     return Scaffold(
       appBar: AppBar(
@@ -82,7 +83,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       autofillHints: const [AutofillHints.email],
-                      validator: required,
+                      validator: email,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
@@ -123,3 +124,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 }
+
+/// User-facing text of a [LoginError].
+String loginErrorMessage(AppLocalizations l10n, LoginError error) =>
+    switch (error) {
+      LoginError.identifiantsInvalides => l10n.loginFailed,
+      LoginError.emailNonConfirme => l10n.loginEmailNotConfirmed,
+      LoginError.tropDeTentatives => l10n.loginTooManyAttempts,
+      LoginError.reseau => l10n.loginNetworkError,
+      LoginError.inconnue => l10n.genericError,
+    };

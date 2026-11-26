@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:io' show HandshakeException, SocketException;
 
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/network/network_error.dart';
+import 'login_error.dart';
 import 'profil.dart';
 import 'profil_exception.dart';
 
@@ -15,16 +15,26 @@ class AuthRepository {
 
   final SupabaseClient _client;
 
-  /// Upper bound for the profile request, so a dead 3G connection ends on
-  /// the error screen instead of an endless splash.
-  static const profilTimeout = Duration(seconds: 15);
+  /// Upper bound for auth/profile requests, so a dead 3G connection ends on
+  /// an error message instead of an endless loader.
+  static const requestTimeout = Duration(seconds: 15);
 
   Stream<AuthState> authStateChanges() => _client.auth.onAuthStateChange;
 
   Session? get currentSession => _client.auth.currentSession;
 
+  /// Throws a [LoginException] whose [LoginError] says why it failed.
   Future<void> signIn({required String email, required String password}) async {
-    await _client.auth.signInWithPassword(email: email, password: password);
+    try {
+      await _client.auth
+          .signInWithPassword(email: email, password: password)
+          .timeout(requestTimeout);
+    } catch (e, st) {
+      Error.throwWithStackTrace(
+        LoginException(classifyLoginError(e, st), e),
+        st,
+      );
+    }
   }
 
   Future<void> signOut() => _client.auth.signOut();
@@ -45,7 +55,7 @@ class AuthRepository {
           .select('id, role, doit_changer_mdp')
           .eq('id', uid)
           .maybeSingle()
-          .timeout(profilTimeout);
+          .timeout(requestTimeout);
     } catch (e, st) {
       Error.throwWithStackTrace(classifyProfilError(e, st), st);
     }
@@ -63,12 +73,7 @@ class AuthRepository {
 ProfilException classifyProfilError(Object error, StackTrace stackTrace) {
   if (error is ProfilException) return error;
   if (error is PostgrestException) return ProfilErreurServeur(error);
-  if (error is SocketException ||
-      error is HandshakeException ||
-      error is TimeoutException ||
-      error is http.ClientException) {
-    return ProfilErreurReseau(error);
-  }
+  if (isNetworkError(error)) return ProfilErreurReseau(error);
   developer.log(
     'Unexpected error while loading profils',
     name: 'AuthRepository',

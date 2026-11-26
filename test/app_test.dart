@@ -138,6 +138,34 @@ void main() {
       }
     });
 
+    test("sub-pages of the role home are allowed, not other roles' ones", () {
+      expect(
+        redirectFor(
+          AuthStatus.signedIn,
+          UserRole.chauffeur,
+          '/chauffeur/scanner',
+        ),
+        isNull,
+      );
+      expect(
+        redirectFor(
+          AuthStatus.signedIn,
+          UserRole.voyageur,
+          '/chauffeur/scanner',
+        ),
+        '/voyageur',
+      );
+      // A prefix that is not a sub-path does not count.
+      expect(
+        redirectFor(AuthStatus.signedIn, UserRole.agent, '/agentx'),
+        '/agent',
+      );
+      expect(
+        redirectFor(AuthStatus.signedOut, null, '/chauffeur/scanner'),
+        '/login',
+      );
+    });
+
     test('profile error goes to the error screen, never a role home', () {
       expect(
         redirectFor(AuthStatus.profileError, null, '/voyageur'),

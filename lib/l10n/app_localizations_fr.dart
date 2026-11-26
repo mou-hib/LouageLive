@@ -135,6 +135,89 @@ class AppLocalizationsFr extends AppLocalizations {
   String get backToLogin => 'Retour à la connexion';
 
   @override
+  String get chauffeurNoLouage =>
+      'Aucun louage associé, contactez l\'agent de station.';
+
+  @override
+  String louageCapacite(int capacite) {
+    String _temp0 = intl.Intl.pluralLogic(
+      capacite,
+      locale: localeName,
+      other: '$capacite places',
+      one: '1 place',
+    );
+    return 'Capacité : $_temp0';
+  }
+
+  @override
+  String chauffeurInQueue(String station, String ville) {
+    return 'Vous êtes dans la file : $station → $ville';
+  }
+
+  @override
+  String get scanStationQr => 'Scanner le QR de la station';
+
+  @override
+  String get scannerHint => 'Placez le QR code de la station dans le cadre.';
+
+  @override
+  String get torchOn => 'Allumer la lampe';
+
+  @override
+  String get torchOff => 'Éteindre la lampe';
+
+  @override
+  String get cameraPermissionDenied =>
+      'Autorisez l\'accès à la caméra pour scanner le QR de la station.';
+
+  @override
+  String get openSettings => 'Ouvrir les réglages';
+
+  @override
+  String get cameraUnavailable =>
+      'Impossible d\'utiliser la caméra sur cet appareil.';
+
+  @override
+  String get chooseLine => 'Choisissez votre ligne';
+
+  @override
+  String get noActiveLine => 'Aucune ligne active dans cette station.';
+
+  @override
+  String tarifDt(String tarif) {
+    return '$tarif DT';
+  }
+
+  @override
+  String joinQueueConfirm(String station, String ville) {
+    return 'Rejoindre la file $station → $ville ?';
+  }
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get joinQueue => 'Rejoindre';
+
+  @override
+  String get joinedQueue => 'Vous avez rejoint la file.';
+
+  @override
+  String get fileErrAccesRefuse =>
+      'Seuls les chauffeurs peuvent rejoindre une file.';
+
+  @override
+  String get fileErrAucunLouage =>
+      'Aucun louage actif n\'est associé à votre compte.';
+
+  @override
+  String get fileErrQrInvalide =>
+      'QR code non reconnu. Scannez le QR de la station.';
+
+  @override
+  String get fileErrDejaEnFile => 'Votre louage est déjà dans une file.';
+
+  @override
   String get comingSoon =>
       'Les fonctionnalités arrivent dans les prochains sprints.';
 

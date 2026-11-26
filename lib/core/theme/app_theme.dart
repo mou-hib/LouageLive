@@ -40,3 +40,11 @@ abstract final class AppTheme {
     );
   }
 }
+
+/// Spacing scale for new screens, kept in one place so the coming redesign
+/// can change it without touching widgets.
+abstract final class AppSpacing {
+  static const double sm = 8;
+  static const double md = 16;
+  static const double lg = 24;
+}

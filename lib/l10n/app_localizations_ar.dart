@@ -133,6 +133,88 @@ class AppLocalizationsAr extends AppLocalizations {
   String get backToLogin => 'العودة إلى تسجيل الدخول';
 
   @override
+  String get chauffeurNoLouage =>
+      'لا يوجد لواج مرتبط بحسابك، اتصل بعون المحطة.';
+
+  @override
+  String louageCapacite(int capacite) {
+    String _temp0 = intl.Intl.pluralLogic(
+      capacite,
+      locale: localeName,
+      other: '$capacite مقعدًا',
+      few: '$capacite مقاعد',
+      two: 'مقعدان',
+      one: 'مقعد واحد',
+    );
+    return 'السعة: $_temp0';
+  }
+
+  @override
+  String chauffeurInQueue(String station, String ville) {
+    return 'أنت في الطابور: $station ← $ville';
+  }
+
+  @override
+  String get scanStationQr => 'امسح رمز QR الخاص بالمحطة';
+
+  @override
+  String get scannerHint => 'ضع رمز QR الخاص بالمحطة داخل الإطار.';
+
+  @override
+  String get torchOn => 'تشغيل المصباح';
+
+  @override
+  String get torchOff => 'إطفاء المصباح';
+
+  @override
+  String get cameraPermissionDenied =>
+      'اسمح بالوصول إلى الكاميرا لمسح رمز QR الخاص بالمحطة.';
+
+  @override
+  String get openSettings => 'فتح الإعدادات';
+
+  @override
+  String get cameraUnavailable => 'تعذّر استعمال الكاميرا على هذا الجهاز.';
+
+  @override
+  String get chooseLine => 'اختر خطّك';
+
+  @override
+  String get noActiveLine => 'لا يوجد خط نشط في هذه المحطة.';
+
+  @override
+  String tarifDt(String tarif) {
+    return '$tarif د.ت';
+  }
+
+  @override
+  String joinQueueConfirm(String station, String ville) {
+    return 'الانضمام إلى طابور $station ← $ville؟';
+  }
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get joinQueue => 'انضمام';
+
+  @override
+  String get joinedQueue => 'انضممت إلى الطابور.';
+
+  @override
+  String get fileErrAccesRefuse => 'يمكن للسائقين فقط الانضمام إلى الطابور.';
+
+  @override
+  String get fileErrAucunLouage => 'لا يوجد لواج نشط مرتبط بحسابك.';
+
+  @override
+  String get fileErrQrInvalide =>
+      'رمز QR غير معروف. امسح رمز QR الخاص بالمحطة.';
+
+  @override
+  String get fileErrDejaEnFile => 'لواجك موجود بالفعل في طابور.';
+
+  @override
   String get comingSoon => 'ستتوفر الميزات في المراحل القادمة.';
 
   @override

@@ -332,6 +332,132 @@ abstract class AppLocalizations {
   /// **'Retour à la connexion'**
   String get backToLogin;
 
+  /// C1 : le chauffeur n'a pas de louage actif
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun louage associé, contactez l\'agent de station.'**
+  String get chauffeurNoLouage;
+
+  /// C1 : capacité du louage
+  ///
+  /// In fr, this message translates to:
+  /// **'Capacité : {capacite, plural, =1{1 place} other{{capacite} places}}'**
+  String louageCapacite(int capacite);
+
+  /// C1 : le louage est déjà dans une file
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous êtes dans la file : {station} → {ville}'**
+  String chauffeurInQueue(String station, String ville);
+
+  /// C1 : bouton principal, et titre de C2
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner le QR de la station'**
+  String get scanStationQr;
+
+  /// No description provided for @scannerHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Placez le QR code de la station dans le cadre.'**
+  String get scannerHint;
+
+  /// No description provided for @torchOn.
+  ///
+  /// In fr, this message translates to:
+  /// **'Allumer la lampe'**
+  String get torchOn;
+
+  /// No description provided for @torchOff.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éteindre la lampe'**
+  String get torchOff;
+
+  /// C2 : permission caméra refusée
+  ///
+  /// In fr, this message translates to:
+  /// **'Autorisez l\'accès à la caméra pour scanner le QR de la station.'**
+  String get cameraPermissionDenied;
+
+  /// No description provided for @openSettings.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ouvrir les réglages'**
+  String get openSettings;
+
+  /// No description provided for @cameraUnavailable.
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible d\'utiliser la caméra sur cet appareil.'**
+  String get cameraUnavailable;
+
+  /// No description provided for @chooseLine.
+  ///
+  /// In fr, this message translates to:
+  /// **'Choisissez votre ligne'**
+  String get chooseLine;
+
+  /// No description provided for @noActiveLine.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune ligne active dans cette station.'**
+  String get noActiveLine;
+
+  /// Tarif officiel en dinars tunisiens
+  ///
+  /// In fr, this message translates to:
+  /// **'{tarif} DT'**
+  String tarifDt(String tarif);
+
+  /// C2 : dialogue de confirmation
+  ///
+  /// In fr, this message translates to:
+  /// **'Rejoindre la file {station} → {ville} ?'**
+  String joinQueueConfirm(String station, String ville);
+
+  /// No description provided for @cancel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annuler'**
+  String get cancel;
+
+  /// No description provided for @joinQueue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rejoindre'**
+  String get joinQueue;
+
+  /// No description provided for @joinedQueue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous avez rejoint la file.'**
+  String get joinedQueue;
+
+  /// No description provided for @fileErrAccesRefuse.
+  ///
+  /// In fr, this message translates to:
+  /// **'Seuls les chauffeurs peuvent rejoindre une file.'**
+  String get fileErrAccesRefuse;
+
+  /// No description provided for @fileErrAucunLouage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun louage actif n\'est associé à votre compte.'**
+  String get fileErrAucunLouage;
+
+  /// No description provided for @fileErrQrInvalide.
+  ///
+  /// In fr, this message translates to:
+  /// **'QR code non reconnu. Scannez le QR de la station.'**
+  String get fileErrQrInvalide;
+
+  /// No description provided for @fileErrDejaEnFile.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre louage est déjà dans une file.'**
+  String get fileErrDejaEnFile;
+
   /// No description provided for @comingSoon.
   ///
   /// In fr, this message translates to:

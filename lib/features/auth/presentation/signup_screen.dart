@@ -5,11 +5,17 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../../core/l10n/language_switch_button.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/theme/app_theme.dart';
+import '../../../core/widgets/ll_app_bar.dart';
+import '../../../core/widgets/ll_banner.dart';
+import '../../../core/widgets/ll_button.dart';
+import '../../../core/widgets/ll_text_field.dart';
 import '../../../l10n/app_localizations.dart';
 import '../data/auth_repository.dart';
 import '../data/sign_up_error.dart';
 import '../logic/auth_providers.dart';
 import '../logic/auth_validators.dart';
+import 'widgets/auth_layout.dart';
 
 /// B1 — voyageur self sign-up. Chauffeurs and agents are created by the
 /// admin; the database trigger always gives this account the `voyageur` role.
@@ -28,8 +34,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _confirmation = TextEditingController();
-  bool _hidePassword = true;
-  bool _hideConfirmation = true;
   bool _submitting = false;
   String? _error;
 
@@ -80,30 +84,37 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     }
   }
 
+  void _back() => context.go(AppRoutes.login);
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final sentTo = _confirmationSentTo;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.createAccount),
-        actions: const [LanguageSwitchButton()],
-      ),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsetsDirectional.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: sentTo == null
-                  ? _buildForm(context, l10n)
-                  : _CheckEmail(email: sentTo),
+    // Reached with `go` from the login: nothing to pop, so the app bar
+    // arrow and the system back both lead back to /login.
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _back();
+      },
+      child: sentTo == null
+          ? _buildForm(context, l10n)
+          : Scaffold(
+              appBar: _appBar(l10n),
+              body: SafeArea(child: _CheckEmail(email: sentTo)),
             ),
-          ),
-        ),
-      ),
     );
   }
+
+  LLAppBar _appBar(AppLocalizations l10n) => LLAppBar(
+    title: l10n.createAccount,
+    leading: IconButton(
+      icon: const BackButtonIcon(),
+      tooltip: l10n.back,
+      onPressed: _submitting ? null : _back,
+    ),
+    trailing: const [LanguageSwitchButton()],
+  );
 
   Widget _buildForm(BuildContext context, AppLocalizations l10n) {
     String? required(String? v) =>
@@ -119,116 +130,111 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             : null);
     String? confirmation(String? v) =>
         required(v) ?? (v == _password.text ? null : l10n.passwordsDontMatch);
+    final enabled = !_submitting;
 
-    Widget eye(bool hidden, VoidCallback toggle) => IconButton(
-      icon: Icon(hidden ? Icons.visibility : Icons.visibility_off),
-      tooltip: hidden ? l10n.showPassword : l10n.hidePassword,
-      onPressed: toggle,
-    );
-
-    return AutofillGroup(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextFormField(
-              controller: _prenom,
-              decoration: InputDecoration(labelText: l10n.firstName),
-              textCapitalization: TextCapitalization.words,
-              textInputAction: TextInputAction.next,
-              autofillHints: const [AutofillHints.givenName],
-              validator: required,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _nom,
-              decoration: InputDecoration(labelText: l10n.lastName),
-              textCapitalization: TextCapitalization.words,
-              textInputAction: TextInputAction.next,
-              autofillHints: const [AutofillHints.familyName],
-              validator: required,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _telephone,
-              decoration: InputDecoration(
-                labelText: l10n.phone,
-                helperText: l10n.phoneHint,
-              ),
-              keyboardType: TextInputType.phone,
-              textDirection: TextDirection.ltr,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9+ .\-]')),
+    return Form(
+      key: _formKey,
+      child: AuthLayout(
+        appBar: _appBar(l10n),
+        body: AutofillGroup(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (_error case final error?) ...[
+                LLBanner(kind: LLBannerKind.error, message: error),
+                const SizedBox(height: LLSpace.s16),
               ],
-              textInputAction: TextInputAction.next,
-              autofillHints: const [AutofillHints.telephoneNumber],
-              validator: phone,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _email,
-              decoration: InputDecoration(labelText: l10n.email),
-              keyboardType: TextInputType.emailAddress,
-              textDirection: TextDirection.ltr,
-              textInputAction: TextInputAction.next,
-              autofillHints: const [AutofillHints.email],
-              validator: email,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _password,
-              decoration: InputDecoration(
-                labelText: l10n.password,
-                suffixIcon: eye(
-                  _hidePassword,
-                  () => setState(() => _hidePassword = !_hidePassword),
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: LLTextField(
+                      label: l10n.firstName,
+                      controller: _prenom,
+                      enabled: enabled,
+                      textCapitalization: TextCapitalization.words,
+                      textInputAction: TextInputAction.next,
+                      autofillHints: const [AutofillHints.givenName],
+                      validator: required,
+                    ),
+                  ),
+                  const SizedBox(width: LLSpace.s12),
+                  Expanded(
+                    child: LLTextField(
+                      label: l10n.lastName,
+                      controller: _nom,
+                      enabled: enabled,
+                      textCapitalization: TextCapitalization.words,
+                      textInputAction: TextInputAction.next,
+                      autofillHints: const [AutofillHints.familyName],
+                      validator: required,
+                    ),
+                  ),
+                ],
               ),
-              obscureText: _hidePassword,
-              textInputAction: TextInputAction.next,
-              autofillHints: const [AutofillHints.newPassword],
-              validator: password,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _confirmation,
-              decoration: InputDecoration(
-                labelText: l10n.confirmPassword,
-                suffixIcon: eye(
-                  _hideConfirmation,
-                  () => setState(() => _hideConfirmation = !_hideConfirmation),
-                ),
+              const SizedBox(height: LLSpace.s16),
+              LLTextField(
+                label: l10n.phone,
+                controller: _telephone,
+                enabled: enabled,
+                ltr: true,
+                prefixText: tunisianDialCode,
+                hint: l10n.phoneHint,
+                keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9+ .\-]')),
+                ],
+                textInputAction: TextInputAction.next,
+                autofillHints: const [AutofillHints.telephoneNumber],
+                validator: phone,
               ),
-              obscureText: _hideConfirmation,
-              textInputAction: TextInputAction.done,
-              validator: confirmation,
-              onFieldSubmitted: (_) => _submit(),
-            ),
-            if (_error != null) ...[
-              const SizedBox(height: 16),
-              Text(
-                _error!,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              const SizedBox(height: LLSpace.s16),
+              LLTextField(
+                label: l10n.email,
+                controller: _email,
+                enabled: enabled,
+                ltr: true,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                autofillHints: const [AutofillHints.email],
+                validator: email,
+              ),
+              const SizedBox(height: LLSpace.s16),
+              LLTextField(
+                label: l10n.password,
+                controller: _password,
+                enabled: enabled,
+                obscure: true,
+                textInputAction: TextInputAction.next,
+                autofillHints: const [AutofillHints.newPassword],
+                validator: password,
+              ),
+              const SizedBox(height: LLSpace.s16),
+              LLTextField(
+                label: l10n.confirmPassword,
+                controller: _confirmation,
+                enabled: enabled,
+                obscure: true,
+                textInputAction: TextInputAction.done,
+                validator: confirmation,
+                onFieldSubmitted: (_) => _submitting ? null : _submit(),
               ),
             ],
-            const SizedBox(height: 24),
-            FilledButton(
-              onPressed: _submitting ? null : _submit,
-              child: _submitting
-                  ? const SizedBox.square(
-                      dimension: 24,
-                      child: CircularProgressIndicator(strokeWidth: 3),
-                    )
-                  : Text(l10n.createAccount),
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: _submitting ? null : () => context.go(AppRoutes.login),
-              child: Text(l10n.alreadyHaveAccount),
-            ),
-          ],
+          ),
         ),
+        bottom: [
+          LLButton(
+            label: l10n.createMyAccount,
+            loading: _submitting,
+            onPressed: _submit,
+          ),
+          const SizedBox(height: LLSpace.s8),
+          AuthSwitchLink(
+            question: l10n.alreadyHaveAccountQuestion,
+            action: l10n.signIn,
+            onPressed: _submitting ? null : _back,
+          ),
+        ],
       ),
     );
   }
@@ -243,40 +249,66 @@ class _CheckEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Icon(
-          Icons.mark_email_read_outlined,
-          size: 64,
-          color: theme.colorScheme.primary,
+    final c = LLColors.of(context);
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsetsDirectional.all(LLSpace.s24),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: LLSize.contentMaxW),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: LLSize.statusIcon,
+                  height: LLSize.statusIcon,
+                  decoration: BoxDecoration(
+                    color: c.successTint,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.mark_email_read_outlined,
+                    size: LLSize.statusGlyph,
+                    color: c.success,
+                  ),
+                ),
+              ),
+              const SizedBox(height: LLSpace.s24),
+              Text(
+                l10n.checkEmailTitle,
+                textAlign: TextAlign.center,
+                style: LLText.title2.copyWith(color: c.ink),
+              ),
+              const SizedBox(height: LLSpace.s16),
+              Text(
+                l10n.checkEmailSentTo,
+                textAlign: TextAlign.center,
+                style: LLText.bodyLg.copyWith(color: c.inkMuted),
+              ),
+              const SizedBox(height: LLSpace.s4),
+              // An address is always left-to-right, even inside Arabic text.
+              Text(
+                email,
+                textAlign: TextAlign.center,
+                textDirection: TextDirection.ltr,
+                style: LLText.title3.copyWith(color: c.ink),
+              ),
+              const SizedBox(height: LLSpace.s16),
+              Text(
+                l10n.checkEmailNextStep,
+                textAlign: TextAlign.center,
+                style: LLText.bodyLg.copyWith(color: c.inkMuted),
+              ),
+              const SizedBox(height: LLSpace.s32),
+              LLButton(
+                label: l10n.backToLogin,
+                onPressed: () => context.go(AppRoutes.login),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 16),
-        Text(
-          l10n.checkEmailTitle,
-          textAlign: TextAlign.center,
-          style: theme.textTheme.headlineSmall,
-        ),
-        const SizedBox(height: 16),
-        Text(l10n.checkEmailSentTo, textAlign: TextAlign.center),
-        const SizedBox(height: 4),
-        // An address is always left-to-right, even inside Arabic text.
-        Text(
-          email,
-          textAlign: TextAlign.center,
-          textDirection: TextDirection.ltr,
-          style: theme.textTheme.titleMedium,
-        ),
-        const SizedBox(height: 16),
-        Text(l10n.checkEmailNextStep, textAlign: TextAlign.center),
-        const SizedBox(height: 32),
-        FilledButton(
-          onPressed: () => context.go(AppRoutes.login),
-          child: Text(l10n.backToLogin),
-        ),
-      ],
+      ),
     );
   }
 }

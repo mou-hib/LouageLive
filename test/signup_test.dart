@@ -95,7 +95,7 @@ Future<void> _fill(
 }
 
 Future<void> _submit(WidgetTester tester) async {
-  final button = find.widgetWithText(FilledButton, 'Créer un compte');
+  final button = find.widgetWithText(FilledButton, 'Créer mon compte');
   await tester.ensureVisible(button);
   await tester.tap(button);
   await tester.pumpAndSettle();

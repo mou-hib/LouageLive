@@ -13,12 +13,17 @@ class LLAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.subtitle,
     this.board = false,
     this.trailing = const [],
+    this.leading,
   });
 
   final String title;
   final String? subtitle;
   final bool board;
   final List<Widget> trailing;
+
+  /// Replaces the automatic back arrow (e.g. a back button on a screen
+  /// opened with `go`, which has nothing to pop).
+  final Widget? leading;
 
   @override
   Size get preferredSize =>
@@ -31,6 +36,7 @@ class LLAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: c.surface,
       foregroundColor: c.ink,
       toolbarHeight: LLSize.appBarH,
+      leading: leading,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

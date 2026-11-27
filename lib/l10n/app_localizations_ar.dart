@@ -414,4 +414,109 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get galleryStatusMessage =>
       'ستظهر اللواجات هنا بمجرد انضمام سائق إلى الطابور.';
+
+  @override
+  String get splashTagline => 'اللواج مباشرةً';
+
+  @override
+  String get otherLanguageName => 'Français';
+
+  @override
+  String get loginSubtitle => 'تابع لواجك مباشرةً.';
+
+  @override
+  String get forgotPassword => 'نسيت كلمة المرور؟';
+
+  @override
+  String get forgotPasswordInfo =>
+      'لإعادة تعيين كلمة المرور، اتصل بعون المحطة أو بالمشرف.';
+
+  @override
+  String get signingIn => 'جارٍ الدخول…';
+
+  @override
+  String get noAccountYet => 'ليس لديك حساب؟';
+
+  @override
+  String get createTravelerAccount => 'أنشئ حساب مسافر';
+
+  @override
+  String get loginOfflineBanner =>
+      'لا يوجد اتصال بالإنترنت. يمكنك الدخول عند عودة الشبكة.';
+
+  @override
+  String get loginFieldCheckCredentials =>
+      'تحقّق من البريد الإلكتروني وكلمة المرور.';
+
+  @override
+  String get loginFieldEmailNotConfirmed =>
+      'افتح الرابط الذي وصلك بالبريد لتأكيد هذا العنوان.';
+
+  @override
+  String get createMyAccount => 'إنشاء حسابي';
+
+  @override
+  String get alreadyHaveAccountQuestion => 'لديك حساب؟';
+
+  @override
+  String get back => 'رجوع';
+
+  @override
+  String get profileErrorTitle => 'الملف الشخصي غير موجود';
+
+  @override
+  String get changePasswordTitle => 'كلمة مرور جديدة';
+
+  @override
+  String signedInAs(String email) {
+    return 'متصل باسم $email';
+  }
+
+  @override
+  String get changePasswordTempBanner =>
+      'أُنشئ حسابك بكلمة مرور مؤقتة. اختر كلمة مرور جديدة للمتابعة.';
+
+  @override
+  String get newPasswordLabel => 'كلمة المرور الجديدة';
+
+  @override
+  String get confirmShort => 'تأكيد';
+
+  @override
+  String ruleMinLength(int min) {
+    return '$min أحرف على الأقل';
+  }
+
+  @override
+  String get ruleDigit => 'رقم واحد على الأقل';
+
+  @override
+  String get ruleMatch => 'كلمتا المرور متطابقتان';
+
+  @override
+  String ruleMetA11y(String rule) {
+    return '$rule: مستوفى';
+  }
+
+  @override
+  String ruleNotMetA11y(String rule) {
+    return '$rule: غير مستوفى';
+  }
+
+  @override
+  String get saveAndContinue => 'حفظ ومتابعة';
+
+  @override
+  String get saving => 'جارٍ الحفظ…';
+
+  @override
+  String get changePwdErrWeak => 'كلمة المرور ضعيفة أو شائعة جدًا. اختر غيرها.';
+
+  @override
+  String get changePwdErrSame =>
+      'يجب أن تختلف كلمة المرور الجديدة عن كلمة المرور المؤقتة.';
+
+  @override
+  String get changePwdErrSession =>
+      'انتهت جلستك. سجّل الدخول من جديد ثم أعد المحاولة.';
 }

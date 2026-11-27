@@ -424,4 +424,110 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get galleryStatusMessage =>
       'Les louages apparaîtront ici dès qu\'un chauffeur rejoint la file.';
+
+  @override
+  String get splashTagline => 'Le louage en direct';
+
+  @override
+  String get otherLanguageName => 'العربية';
+
+  @override
+  String get loginSubtitle => 'Suivez votre louage en direct.';
+
+  @override
+  String get forgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get forgotPasswordInfo =>
+      'Pour réinitialiser votre mot de passe, contactez l\'agent de station ou l\'administrateur.';
+
+  @override
+  String get signingIn => 'Connexion…';
+
+  @override
+  String get noAccountYet => 'Pas encore de compte ?';
+
+  @override
+  String get createTravelerAccount => 'Créer un compte voyageur';
+
+  @override
+  String get loginOfflineBanner =>
+      'Pas de connexion internet. Vous pourrez vous connecter dès le retour du réseau.';
+
+  @override
+  String get loginFieldCheckCredentials =>
+      'Vérifiez l\'e-mail et le mot de passe.';
+
+  @override
+  String get loginFieldEmailNotConfirmed =>
+      'Ouvrez le lien reçu par e-mail pour confirmer cette adresse.';
+
+  @override
+  String get createMyAccount => 'Créer mon compte';
+
+  @override
+  String get alreadyHaveAccountQuestion => 'Déjà un compte ?';
+
+  @override
+  String get back => 'Retour';
+
+  @override
+  String get profileErrorTitle => 'Profil introuvable';
+
+  @override
+  String get changePasswordTitle => 'Nouveau mot de passe';
+
+  @override
+  String signedInAs(String email) {
+    return 'Connecté en tant que $email';
+  }
+
+  @override
+  String get changePasswordTempBanner =>
+      'Votre compte a été créé avec un mot de passe temporaire. Choisissez-en un nouveau pour continuer.';
+
+  @override
+  String get newPasswordLabel => 'Nouveau mot de passe';
+
+  @override
+  String get confirmShort => 'Confirmer';
+
+  @override
+  String ruleMinLength(int min) {
+    return 'Au moins $min caractères';
+  }
+
+  @override
+  String get ruleDigit => 'Au moins un chiffre';
+
+  @override
+  String get ruleMatch => 'Les deux mots de passe sont identiques';
+
+  @override
+  String ruleMetA11y(String rule) {
+    return '$rule : respecté';
+  }
+
+  @override
+  String ruleNotMetA11y(String rule) {
+    return '$rule : non respecté';
+  }
+
+  @override
+  String get saveAndContinue => 'Enregistrer et continuer';
+
+  @override
+  String get saving => 'Enregistrement…';
+
+  @override
+  String get changePwdErrWeak =>
+      'Mot de passe trop faible ou trop courant. Choisissez-en un autre.';
+
+  @override
+  String get changePwdErrSame =>
+      'Le nouveau mot de passe doit être différent du mot de passe temporaire.';
+
+  @override
+  String get changePwdErrSession =>
+      'Votre session a expiré. Reconnectez-vous puis recommencez.';
 }

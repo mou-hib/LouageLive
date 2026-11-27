@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/network/network_error.dart';
+import 'change_password_error.dart';
 import 'login_error.dart';
 import 'profil.dart';
 import 'profil_exception.dart';
@@ -32,6 +33,9 @@ class AuthRepository {
   Stream<AuthState> authStateChanges() => _client.auth.onAuthStateChange;
 
   Session? get currentSession => _client.auth.currentSession;
+
+  /// E-mail of the signed-in user ("Connecté en tant que …" on A8).
+  String? get currentUserEmail => _client.auth.currentUser?.email;
 
   /// Throws a [LoginException] whose [LoginError] says why it failed.
   Future<void> signIn({required String email, required String password}) async {
@@ -76,6 +80,37 @@ class AuthRepository {
   }
 
   Future<void> signOut() => _client.auth.signOut();
+
+  /// A8, step 1: sets the new password of the signed-in user.
+  ///
+  /// Throws a [ChangePasswordException].
+  Future<void> updatePassword(String password) async {
+    try {
+      await _client.auth
+          .updateUser(UserAttributes(password: password))
+          .timeout(requestTimeout);
+    } catch (e, st) {
+      Error.throwWithStackTrace(
+        ChangePasswordException(classifyChangePasswordError(e, st), e),
+        st,
+      );
+    }
+  }
+
+  /// A8, step 2: RPC `marquer_mdp_change()` sets
+  /// `profils.doit_changer_mdp = false` for `auth.uid()`.
+  ///
+  /// Throws a [ChangePasswordException].
+  Future<void> markPasswordChanged() async {
+    try {
+      await _client.rpc<void>('marquer_mdp_change').timeout(requestTimeout);
+    } catch (e, st) {
+      Error.throwWithStackTrace(
+        ChangePasswordException(classifyChangePasswordError(e, st), e),
+        st,
+      );
+    }
+  }
 
   /// Reads `role, doit_changer_mdp` from `public.profils` for `auth.uid()`.
   ///

@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/l10n/language_switch_button.dart';
+import '../../../core/widgets/ll_button.dart';
+import '../../../core/widgets/status_view.dart';
 import '../../../l10n/app_localizations.dart';
 import '../data/profil_exception.dart';
 import '../logic/auth_providers.dart';
@@ -22,41 +24,20 @@ class ProfileErrorScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(actions: const [LanguageSwitchButton()]),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsetsDirectional.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Icon(
-                    Icons.error_outline,
-                    size: 64,
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    message,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 32),
-                  FilledButton.icon(
-                    icon: const Icon(Icons.refresh),
-                    label: Text(l10n.retry),
-                    onPressed: session.retry,
-                  ),
-                  const SizedBox(height: 12),
-                  OutlinedButton.icon(
-                    icon: const Icon(Icons.logout),
-                    label: Text(l10n.logout),
-                    onPressed: () => ref.read(authRepositoryProvider).signOut(),
-                  ),
-                ],
-              ),
-            ),
+        child: StatusView(
+          icon: Icons.error_outline,
+          tone: StatusTone.error,
+          title: message,
+          primary: LLButton(
+            icon: Icons.refresh,
+            label: l10n.retry,
+            onPressed: session.retry,
+          ),
+          secondary: LLButton(
+            variant: LLButtonVariant.outline,
+            icon: Icons.logout,
+            label: l10n.logout,
+            onPressed: () => ref.read(authRepositoryProvider).signOut(),
           ),
         ),
       ),

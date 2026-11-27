@@ -487,6 +487,348 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Configuration Supabase manquante. Lancez l\'application avec --dart-define-from-file=config/env.json (voir README).'**
   String get configMissing;
+
+  /// Lecteur d'écran : indicateur de places (ex. 6 places occupées sur 8)
+  ///
+  /// In fr, this message translates to:
+  /// **'{occupied, plural, one{{occupied} place occupée} other{{occupied} places occupées}} sur {capacity}'**
+  String seatsOccupiedA11y(int occupied, int capacity);
+
+  /// Pastille d'état : louage en attente dans la file
+  ///
+  /// In fr, this message translates to:
+  /// **'En attente'**
+  String get statusEnAttente;
+
+  /// Pastille d'état : louage en tête, des places restent
+  ///
+  /// In fr, this message translates to:
+  /// **'En remplissage'**
+  String get statusEnRemplissage;
+
+  /// Pastille d'état : 1 ou 2 places restantes
+  ///
+  /// In fr, this message translates to:
+  /// **'Presque complet'**
+  String get statusPresqueComplet;
+
+  /// No description provided for @statusComplet.
+  ///
+  /// In fr, this message translates to:
+  /// **'Complet'**
+  String get statusComplet;
+
+  /// No description provided for @statusParti.
+  ///
+  /// In fr, this message translates to:
+  /// **'Parti'**
+  String get statusParti;
+
+  /// Pastille d'état : louage retiré de la file
+  ///
+  /// In fr, this message translates to:
+  /// **'Retiré'**
+  String get statusRetire;
+
+  /// Pastille d'état : réservation pas encore confirmée
+  ///
+  /// In fr, this message translates to:
+  /// **'En attente'**
+  String get reservationEnAttente;
+
+  /// No description provided for @reservationConfirmee.
+  ///
+  /// In fr, this message translates to:
+  /// **'Confirmée'**
+  String get reservationConfirmee;
+
+  /// No description provided for @reservationAnnulee.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annulée'**
+  String get reservationAnnulee;
+
+  /// No description provided for @reservationExpiree.
+  ///
+  /// In fr, this message translates to:
+  /// **'Expirée'**
+  String get reservationExpiree;
+
+  /// Surtitre de la carte du louage en tête de file
+  ///
+  /// In fr, this message translates to:
+  /// **'En tête de file'**
+  String get queueHead;
+
+  /// Lecteur d'écran : rang du louage dans la file
+  ///
+  /// In fr, this message translates to:
+  /// **'Rang {rank}'**
+  String queueRankA11y(int rank);
+
+  /// No description provided for @etaLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Départ estimé'**
+  String get etaLabel;
+
+  /// No description provided for @fareLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tarif'**
+  String get fareLabel;
+
+  /// Badge temps réel connecté
+  ///
+  /// In fr, this message translates to:
+  /// **'En direct'**
+  String get liveNow;
+
+  /// Badge temps réel déconnecté, moins d'une minute
+  ///
+  /// In fr, this message translates to:
+  /// **'Mis à jour il y a {seconds} s'**
+  String liveUpdatedSecondsAgo(int seconds);
+
+  /// Badge temps réel déconnecté, une minute ou plus
+  ///
+  /// In fr, this message translates to:
+  /// **'Mis à jour il y a {minutes} min'**
+  String liveUpdatedMinutesAgo(int minutes);
+
+  /// Badge temps réel déconnecté, aucune mise à jour reçue
+  ///
+  /// In fr, this message translates to:
+  /// **'Hors connexion'**
+  String get liveOffline;
+
+  /// Lecteur d'écran : bouton en cours de chargement
+  ///
+  /// In fr, this message translates to:
+  /// **'Chargement…'**
+  String get loading;
+
+  /// No description provided for @seatStepperRemove.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retirer une place'**
+  String get seatStepperRemove;
+
+  /// No description provided for @seatStepperAdd.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter une place'**
+  String get seatStepperAdd;
+
+  /// Lecteur d'écran : valeur du compteur de places
+  ///
+  /// In fr, this message translates to:
+  /// **'Places : {value}'**
+  String seatStepperValueA11y(int value);
+
+  /// Écran de développement /dev/gallery (debug uniquement)
+  ///
+  /// In fr, this message translates to:
+  /// **'Galerie des composants'**
+  String get galleryTitle;
+
+  /// No description provided for @gallerySubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Louage blanc'**
+  String get gallerySubtitle;
+
+  /// No description provided for @galleryOpen.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ouvrir la galerie'**
+  String get galleryOpen;
+
+  /// No description provided for @galleryDarkMode.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mode sombre'**
+  String get galleryDarkMode;
+
+  /// No description provided for @galleryArabic.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arabe (RTL)'**
+  String get galleryArabic;
+
+  /// No description provided for @galleryReduceMotion.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sans animations'**
+  String get galleryReduceMotion;
+
+  /// No description provided for @galleryConnected.
+  ///
+  /// In fr, this message translates to:
+  /// **'Connecté'**
+  String get galleryConnected;
+
+  /// No description provided for @galleryLoading.
+  ///
+  /// In fr, this message translates to:
+  /// **'Chargement'**
+  String get galleryLoading;
+
+  /// No description provided for @galleryButtons.
+  ///
+  /// In fr, this message translates to:
+  /// **'Boutons'**
+  String get galleryButtons;
+
+  /// No description provided for @gallerySeats.
+  ///
+  /// In fr, this message translates to:
+  /// **'Places'**
+  String get gallerySeats;
+
+  /// No description provided for @galleryChips.
+  ///
+  /// In fr, this message translates to:
+  /// **'États'**
+  String get galleryChips;
+
+  /// No description provided for @galleryCards.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cartes louage'**
+  String get galleryCards;
+
+  /// No description provided for @galleryBanners.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bandeaux'**
+  String get galleryBanners;
+
+  /// No description provided for @galleryFields.
+  ///
+  /// In fr, this message translates to:
+  /// **'Champs'**
+  String get galleryFields;
+
+  /// No description provided for @galleryStepper.
+  ///
+  /// In fr, this message translates to:
+  /// **'Compteur chauffeur'**
+  String get galleryStepper;
+
+  /// No description provided for @galleryStatusView.
+  ///
+  /// In fr, this message translates to:
+  /// **'Écran d\'état'**
+  String get galleryStatusView;
+
+  /// No description provided for @gallerySkeleton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Chargement (squelette)'**
+  String get gallerySkeleton;
+
+  /// No description provided for @galleryTypography.
+  ///
+  /// In fr, this message translates to:
+  /// **'Typographie'**
+  String get galleryTypography;
+
+  /// No description provided for @galleryAppBar.
+  ///
+  /// In fr, this message translates to:
+  /// **'Barre d\'application'**
+  String get galleryAppBar;
+
+  /// No description provided for @galleryLive.
+  ///
+  /// In fr, this message translates to:
+  /// **'Temps réel'**
+  String get galleryLive;
+
+  /// No description provided for @galleryPrimary.
+  ///
+  /// In fr, this message translates to:
+  /// **'Principal'**
+  String get galleryPrimary;
+
+  /// No description provided for @gallerySecondary.
+  ///
+  /// In fr, this message translates to:
+  /// **'Secondaire'**
+  String get gallerySecondary;
+
+  /// No description provided for @galleryOutline.
+  ///
+  /// In fr, this message translates to:
+  /// **'Contour'**
+  String get galleryOutline;
+
+  /// No description provided for @galleryText.
+  ///
+  /// In fr, this message translates to:
+  /// **'Texte'**
+  String get galleryText;
+
+  /// No description provided for @galleryDestructive.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer'**
+  String get galleryDestructive;
+
+  /// No description provided for @galleryDriver.
+  ///
+  /// In fr, this message translates to:
+  /// **'Démarrer le départ'**
+  String get galleryDriver;
+
+  /// No description provided for @galleryRoute.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bab Saadoun → Sousse'**
+  String get galleryRoute;
+
+  /// No description provided for @galleryEta.
+  ///
+  /// In fr, this message translates to:
+  /// **'≈ 10 min'**
+  String get galleryEta;
+
+  /// No description provided for @galleryBannerOffline.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas de connexion. Les places affichées peuvent être anciennes.'**
+  String get galleryBannerOffline;
+
+  /// No description provided for @galleryBannerError.
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible de mettre à jour la file.'**
+  String get galleryBannerError;
+
+  /// No description provided for @galleryBannerWarn.
+  ///
+  /// In fr, this message translates to:
+  /// **'Plus que 2 places dans ce louage.'**
+  String get galleryBannerWarn;
+
+  /// No description provided for @galleryBannerOk.
+  ///
+  /// In fr, this message translates to:
+  /// **'Réservation confirmée.'**
+  String get galleryBannerOk;
+
+  /// No description provided for @galleryStatusTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun louage en file'**
+  String get galleryStatusTitle;
+
+  /// No description provided for @galleryStatusMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les louages apparaîtront ici dès qu\'un chauffeur rejoint la file.'**
+  String get galleryStatusMessage;
 }
 
 class _AppLocalizationsDelegate

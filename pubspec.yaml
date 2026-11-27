@@ -71,6 +71,17 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    # SIL Open Font License of the bundled font (shown in the licence page).
+    - assets/fonts/OFL.txt
+
+  # Rubik (google/fonts, ofl/rubik), variable weight axis 300–900. Bundled so
+  # it works offline at the station; covers Latin and Arabic.
+  fonts:
+    - family: Rubik
+      fonts:
+        - asset: assets/fonts/Rubik-VariableFont_wght.ttf
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

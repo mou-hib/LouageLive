@@ -231,4 +231,187 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get configMissing =>
       'إعدادات Supabase مفقودة. شغّل التطبيق باستعمال ‎--dart-define-from-file=config/env.json (راجع README).';
+
+  @override
+  String seatsOccupiedA11y(int occupied, int capacity) {
+    return 'المقاعد المشغولة: $occupied من $capacity';
+  }
+
+  @override
+  String get statusEnAttente => 'في الانتظار';
+
+  @override
+  String get statusEnRemplissage => 'قيد التعبئة';
+
+  @override
+  String get statusPresqueComplet => 'شبه ممتلئ';
+
+  @override
+  String get statusComplet => 'ممتلئ';
+
+  @override
+  String get statusParti => 'انطلق';
+
+  @override
+  String get statusRetire => 'سُحب';
+
+  @override
+  String get reservationEnAttente => 'في الانتظار';
+
+  @override
+  String get reservationConfirmee => 'مؤكَّد';
+
+  @override
+  String get reservationAnnulee => 'ملغى';
+
+  @override
+  String get reservationExpiree => 'منتهي الصلاحية';
+
+  @override
+  String get queueHead => 'في رأس الطابور';
+
+  @override
+  String queueRankA11y(int rank) {
+    return 'الرتبة $rank';
+  }
+
+  @override
+  String get etaLabel => 'الانطلاق المتوقع';
+
+  @override
+  String get fareLabel => 'التعريفة';
+
+  @override
+  String get liveNow => 'مباشر';
+
+  @override
+  String liveUpdatedSecondsAgo(int seconds) {
+    return 'آخر تحديث منذ $seconds ث';
+  }
+
+  @override
+  String liveUpdatedMinutesAgo(int minutes) {
+    return 'آخر تحديث منذ $minutes د';
+  }
+
+  @override
+  String get liveOffline => 'غير متصل';
+
+  @override
+  String get loading => 'جارٍ التحميل…';
+
+  @override
+  String get seatStepperRemove => 'إزالة مقعد';
+
+  @override
+  String get seatStepperAdd => 'إضافة مقعد';
+
+  @override
+  String seatStepperValueA11y(int value) {
+    return 'المقاعد: $value';
+  }
+
+  @override
+  String get galleryTitle => 'معرض المكوّنات';
+
+  @override
+  String get gallerySubtitle => 'لواج أبيض';
+
+  @override
+  String get galleryOpen => 'فتح المعرض';
+
+  @override
+  String get galleryDarkMode => 'الوضع الداكن';
+
+  @override
+  String get galleryArabic => 'العربية (من اليمين لليسار)';
+
+  @override
+  String get galleryReduceMotion => 'بدون حركة';
+
+  @override
+  String get galleryConnected => 'متصل';
+
+  @override
+  String get galleryLoading => 'تحميل';
+
+  @override
+  String get galleryButtons => 'الأزرار';
+
+  @override
+  String get gallerySeats => 'المقاعد';
+
+  @override
+  String get galleryChips => 'الحالات';
+
+  @override
+  String get galleryCards => 'بطاقات اللواج';
+
+  @override
+  String get galleryBanners => 'الشرائط';
+
+  @override
+  String get galleryFields => 'الحقول';
+
+  @override
+  String get galleryStepper => 'عدّاد السائق';
+
+  @override
+  String get galleryStatusView => 'شاشة الحالة';
+
+  @override
+  String get gallerySkeleton => 'تحميل (هيكل)';
+
+  @override
+  String get galleryTypography => 'الخطوط';
+
+  @override
+  String get galleryAppBar => 'شريط التطبيق';
+
+  @override
+  String get galleryLive => 'الوقت الحقيقي';
+
+  @override
+  String get galleryPrimary => 'رئيسي';
+
+  @override
+  String get gallerySecondary => 'ثانوي';
+
+  @override
+  String get galleryOutline => 'محدَّد';
+
+  @override
+  String get galleryText => 'نص';
+
+  @override
+  String get galleryDestructive => 'حذف';
+
+  @override
+  String get galleryDriver => 'بدء الانطلاق';
+
+  @override
+  String get galleryRoute => 'باب سعدون ← سوسة';
+
+  @override
+  String get galleryEta => '≈ 10 د';
+
+  @override
+  String get galleryBannerOffline =>
+      'لا يوجد اتصال. قد تكون المقاعد المعروضة قديمة.';
+
+  @override
+  String get galleryBannerError => 'تعذّر تحديث الطابور.';
+
+  @override
+  String get galleryBannerWarn => 'بقي مقعدان فقط في هذا اللواج.';
+
+  @override
+  String get galleryBannerOk => 'تم تأكيد الحجز.';
+
+  @override
+  String get galleryStatusTitle => 'لا يوجد لواج في الطابور';
+
+  @override
+  String get galleryStatusMessage =>
+      'ستظهر اللواجات هنا بمجرد انضمام سائق إلى الطابور.';
 }

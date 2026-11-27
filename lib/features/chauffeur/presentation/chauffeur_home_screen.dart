@@ -10,6 +10,7 @@ import '../data/louage.dart';
 import '../data/passage.dart';
 import '../logic/chauffeur_providers.dart';
 import 'file_error_message.dart';
+import '../../../core/widgets/status_view.dart';
 import 'widgets/centered_message.dart';
 
 /// C1 — chauffeur home: my louage, and either my current queue or the
@@ -30,6 +31,7 @@ class ChauffeurHomeScreen extends ConsumerWidget {
         ),
         AsyncError(:final error) => CenteredMessage(
           icon: Icons.error_outline,
+          tone: StatusTone.error,
           text: fileErrorMessage(l10n, fileErrorOf(error)),
           action: FilledButton.icon(
             icon: const Icon(Icons.refresh),

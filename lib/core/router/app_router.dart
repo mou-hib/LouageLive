@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,6 +13,7 @@ import '../../features/auth/presentation/splash_screen.dart';
 import '../../features/chauffeur/presentation/chauffeur_home_screen.dart';
 import '../../features/chauffeur/presentation/scanner_screen.dart';
 import '../../features/voyageur/presentation/voyageur_home_screen.dart';
+import '../dev/dev_gallery_screen.dart';
 
 abstract final class AppRoutes {
   static const splash = '/chargement';
@@ -19,6 +21,9 @@ abstract final class AppRoutes {
   static const signUp = '/inscription';
   static const profileError = '/erreur-profil';
   static const chauffeurScanner = '/chauffeur/scanner';
+
+  /// Widget gallery, registered in debug builds only.
+  static const devGallery = '/dev/gallery';
 }
 
 /// Redirect rules (BNF-6, UI side only — RLS is the real protection):
@@ -48,7 +53,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: AppRoutes.splash,
     refreshListenable: session,
     redirect: (context, state) =>
-        redirectFor(session.status, session.role, state.matchedLocation),
+        kDebugMode && state.matchedLocation == AppRoutes.devGallery
+        ? null
+        : redirectFor(session.status, session.role, state.matchedLocation),
     routes: [
       GoRoute(
         path: AppRoutes.splash,
@@ -88,6 +95,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: UserRole.admin.homePath,
         builder: (context, state) => const AdminHomeScreen(),
       ),
+      if (kDebugMode)
+        GoRoute(
+          path: AppRoutes.devGallery,
+          builder: (context, state) => const DevGalleryScreen(),
+        ),
     ],
   );
   ref.onDispose(router.dispose);

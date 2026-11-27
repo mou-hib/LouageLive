@@ -235,4 +235,193 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get configMissing =>
       'Configuration Supabase manquante. Lancez l\'application avec --dart-define-from-file=config/env.json (voir README).';
+
+  @override
+  String seatsOccupiedA11y(int occupied, int capacity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      occupied,
+      locale: localeName,
+      other: '$occupied places occupées',
+      one: '$occupied place occupée',
+    );
+    return '$_temp0 sur $capacity';
+  }
+
+  @override
+  String get statusEnAttente => 'En attente';
+
+  @override
+  String get statusEnRemplissage => 'En remplissage';
+
+  @override
+  String get statusPresqueComplet => 'Presque complet';
+
+  @override
+  String get statusComplet => 'Complet';
+
+  @override
+  String get statusParti => 'Parti';
+
+  @override
+  String get statusRetire => 'Retiré';
+
+  @override
+  String get reservationEnAttente => 'En attente';
+
+  @override
+  String get reservationConfirmee => 'Confirmée';
+
+  @override
+  String get reservationAnnulee => 'Annulée';
+
+  @override
+  String get reservationExpiree => 'Expirée';
+
+  @override
+  String get queueHead => 'En tête de file';
+
+  @override
+  String queueRankA11y(int rank) {
+    return 'Rang $rank';
+  }
+
+  @override
+  String get etaLabel => 'Départ estimé';
+
+  @override
+  String get fareLabel => 'Tarif';
+
+  @override
+  String get liveNow => 'En direct';
+
+  @override
+  String liveUpdatedSecondsAgo(int seconds) {
+    return 'Mis à jour il y a $seconds s';
+  }
+
+  @override
+  String liveUpdatedMinutesAgo(int minutes) {
+    return 'Mis à jour il y a $minutes min';
+  }
+
+  @override
+  String get liveOffline => 'Hors connexion';
+
+  @override
+  String get loading => 'Chargement…';
+
+  @override
+  String get seatStepperRemove => 'Retirer une place';
+
+  @override
+  String get seatStepperAdd => 'Ajouter une place';
+
+  @override
+  String seatStepperValueA11y(int value) {
+    return 'Places : $value';
+  }
+
+  @override
+  String get galleryTitle => 'Galerie des composants';
+
+  @override
+  String get gallerySubtitle => 'Louage blanc';
+
+  @override
+  String get galleryOpen => 'Ouvrir la galerie';
+
+  @override
+  String get galleryDarkMode => 'Mode sombre';
+
+  @override
+  String get galleryArabic => 'Arabe (RTL)';
+
+  @override
+  String get galleryReduceMotion => 'Sans animations';
+
+  @override
+  String get galleryConnected => 'Connecté';
+
+  @override
+  String get galleryLoading => 'Chargement';
+
+  @override
+  String get galleryButtons => 'Boutons';
+
+  @override
+  String get gallerySeats => 'Places';
+
+  @override
+  String get galleryChips => 'États';
+
+  @override
+  String get galleryCards => 'Cartes louage';
+
+  @override
+  String get galleryBanners => 'Bandeaux';
+
+  @override
+  String get galleryFields => 'Champs';
+
+  @override
+  String get galleryStepper => 'Compteur chauffeur';
+
+  @override
+  String get galleryStatusView => 'Écran d\'état';
+
+  @override
+  String get gallerySkeleton => 'Chargement (squelette)';
+
+  @override
+  String get galleryTypography => 'Typographie';
+
+  @override
+  String get galleryAppBar => 'Barre d\'application';
+
+  @override
+  String get galleryLive => 'Temps réel';
+
+  @override
+  String get galleryPrimary => 'Principal';
+
+  @override
+  String get gallerySecondary => 'Secondaire';
+
+  @override
+  String get galleryOutline => 'Contour';
+
+  @override
+  String get galleryText => 'Texte';
+
+  @override
+  String get galleryDestructive => 'Supprimer';
+
+  @override
+  String get galleryDriver => 'Démarrer le départ';
+
+  @override
+  String get galleryRoute => 'Bab Saadoun → Sousse';
+
+  @override
+  String get galleryEta => '≈ 10 min';
+
+  @override
+  String get galleryBannerOffline =>
+      'Pas de connexion. Les places affichées peuvent être anciennes.';
+
+  @override
+  String get galleryBannerError => 'Impossible de mettre à jour la file.';
+
+  @override
+  String get galleryBannerWarn => 'Plus que 2 places dans ce louage.';
+
+  @override
+  String get galleryBannerOk => 'Réservation confirmée.';
+
+  @override
+  String get galleryStatusTitle => 'Aucun louage en file';
+
+  @override
+  String get galleryStatusMessage =>
+      'Les louages apparaîtront ici dès qu\'un chauffeur rejoint la file.';
 }

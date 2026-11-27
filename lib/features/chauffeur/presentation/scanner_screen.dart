@@ -11,6 +11,7 @@ import '../data/file_error.dart';
 import '../data/station.dart';
 import '../logic/chauffeur_providers.dart';
 import 'file_error_message.dart';
+import '../../../core/widgets/status_view.dart';
 import 'widgets/centered_message.dart';
 
 enum _Etape { scan, chargement, lignes, erreur }
@@ -194,6 +195,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
       _Etape.chargement => const Center(child: CircularProgressIndicator()),
       _Etape.erreur => CenteredMessage(
         icon: Icons.error_outline,
+        tone: StatusTone.error,
         text: fileErrorMessage(l10n, _error ?? FileError.inconnue),
         action: FilledButton.icon(
           icon: const Icon(Icons.refresh),
@@ -356,6 +358,7 @@ class _CameraError extends StatelessWidget {
       color: Theme.of(context).colorScheme.surface,
       child: CenteredMessage(
         icon: denied ? Icons.no_photography_outlined : Icons.error_outline,
+        tone: StatusTone.error,
         text: denied ? l10n.cameraPermissionDenied : l10n.cameraUnavailable,
         action: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -6,9 +6,11 @@ import 'app.dart';
 import 'core/config/env.dart';
 import 'core/l10n/locale_provider.dart';
 import 'core/supabase/supabase_client.dart';
+import 'core/theme/font_licenses.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerFontLicenses();
   final prefs = await SharedPreferences.getInstance();
   final overrides = [sharedPreferencesProvider.overrideWithValue(prefs)];
 

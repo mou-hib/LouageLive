@@ -458,6 +458,42 @@ abstract class AppLocalizations {
   /// **'Votre louage est déjà dans une file.'**
   String get fileErrDejaEnFile;
 
+  /// Réservation refusée : réservation déjà en cours (RESERVATION_DEJA_EN_COURS)
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous avez déjà une réservation en cours.'**
+  String get fileErrReservationDejaEnCours;
+
+  /// Refus : le louage n'est pas en tête de file (LOUAGE_PAS_EN_TETE)
+  ///
+  /// In fr, this message translates to:
+  /// **'Seul le louage en tête de file peut être réservé.'**
+  String get fileErrLouagePasEnTete;
+
+  /// Départ refusé : louage pas complet (LOUAGE_PAS_COMPLET)
+  ///
+  /// In fr, this message translates to:
+  /// **'Le louage doit être complet pour partir.'**
+  String get fileErrLouagePasComplet;
+
+  /// Départ refusé : réservation en attente, heure inconnue (RESERVATION_EN_ATTENTE)
+  ///
+  /// In fr, this message translates to:
+  /// **'Des réservations ne sont pas encore scannées.'**
+  String get fileErrReservationEnAttente;
+
+  /// Départ refusé : réservation en attente jusqu'à {heure} (RESERVATION_EN_ATTENTE)
+  ///
+  /// In fr, this message translates to:
+  /// **'Une réservation n\'est pas encore scannée. Elle expire à ⁦{heure}⁩.'**
+  String fileErrReservationEnAttenteJusqua(DateTime heure);
+
+  /// Places refusées : sous le nombre de réservations (PLACES_SOUS_RESERVATIONS)
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible : moins de places que de réservations.'**
+  String get fileErrPlacesSousReservations;
+
   /// No description provided for @comingSoon.
   ///
   /// In fr, this message translates to:

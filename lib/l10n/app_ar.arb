@@ -33,7 +33,7 @@
   "passwordTooShort": "{min} أحرف على الأقل.",
   "passwordsDontMatch": "كلمتا المرور غير متطابقتين.",
   "signUpEmailExists": "يوجد حساب بهذا البريد الإلكتروني.",
-  "signUpWeakPassword": "كلمة المرور ضعيفة جدًا (6 أحرف على الأقل).",
+  "signUpWeakPassword": "كلمة المرور ضعيفة جدًا ({min} أحرف على الأقل).",
   "signUpTooManyAttempts": "محاولات كثيرة جدًا، أعد المحاولة لاحقًا.",
   "checkEmailTitle": "تحقّق من بريدك الإلكتروني",
   "checkEmailSentTo": "أرسلنا رابط تأكيد إلى:",

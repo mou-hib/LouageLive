@@ -299,8 +299,8 @@ abstract class AppLocalizations {
   /// Inscription refusée par Supabase : weak_password
   ///
   /// In fr, this message translates to:
-  /// **'Mot de passe trop faible (6 caractères minimum).'**
-  String get signUpWeakPassword;
+  /// **'Mot de passe trop faible ({min} caractères minimum).'**
+  String signUpWeakPassword(int min);
 
   /// Inscription refusée : limite d'envoi d'e-mails (429)
   ///

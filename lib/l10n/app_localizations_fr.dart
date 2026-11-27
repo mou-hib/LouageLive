@@ -113,8 +113,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get signUpEmailExists => 'Un compte existe déjà avec cet e-mail.';
 
   @override
-  String get signUpWeakPassword =>
-      'Mot de passe trop faible (6 caractères minimum).';
+  String signUpWeakPassword(int min) {
+    return 'Mot de passe trop faible ($min caractères minimum).';
+  }
 
   @override
   String get signUpTooManyAttempts =>

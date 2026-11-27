@@ -113,7 +113,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signUpEmailExists => 'يوجد حساب بهذا البريد الإلكتروني.';
 
   @override
-  String get signUpWeakPassword => 'كلمة المرور ضعيفة جدًا (6 أحرف على الأقل).';
+  String signUpWeakPassword(int min) {
+    return 'كلمة المرور ضعيفة جدًا ($min أحرف على الأقل).';
+  }
 
   @override
   String get signUpTooManyAttempts =>

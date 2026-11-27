@@ -50,8 +50,11 @@
   "passwordsDontMatch": "Les mots de passe ne correspondent pas.",
   "signUpEmailExists": "Un compte existe déjà avec cet e-mail.",
   "@signUpEmailExists": { "description": "Inscription refusée : e-mail déjà utilisé" },
-  "signUpWeakPassword": "Mot de passe trop faible (6 caractères minimum).",
-  "@signUpWeakPassword": { "description": "Inscription refusée par Supabase : weak_password" },
+  "signUpWeakPassword": "Mot de passe trop faible ({min} caractères minimum).",
+  "@signUpWeakPassword": {
+    "description": "Inscription refusée par Supabase : weak_password",
+    "placeholders": { "min": { "type": "int" } }
+  },
   "signUpTooManyAttempts": "Trop de tentatives, réessayez plus tard.",
   "@signUpTooManyAttempts": { "description": "Inscription refusée : limite d'envoi d'e-mails (429)" },
   "checkEmailTitle": "Vérifiez votre e-mail",

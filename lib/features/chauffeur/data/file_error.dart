@@ -10,6 +10,11 @@ enum FileError {
   aucunLouage,
   qrStationInvalide,
   dejaEnFile,
+  reservationDejaEnCours,
+  louagePasEnTete,
+  louagePasComplet,
+  reservationEnAttente,
+  placesSousReservations,
   reseau,
   inconnue,
 }
@@ -23,6 +28,10 @@ class FileAttenteException implements Exception {
   /// Underlying error, kept for logs.
   final Object? cause;
 
+  /// For [FileError.reservationEnAttente]: when the last pending reservation
+  /// expires (the RPC sends it as ISO 8601 UTC in the error DETAIL).
+  DateTime? get expiration => expirationOf(cause);
+
   @override
   String toString() => 'FileAttenteException(${error.name}: $cause)';
 }
@@ -33,7 +42,20 @@ const _codes = {
   'AUCUN_LOUAGE': FileError.aucunLouage,
   'QR_STATION_INVALIDE': FileError.qrStationInvalide,
   'DEJA_EN_FILE': FileError.dejaEnFile,
+  'RESERVATION_DEJA_EN_COURS': FileError.reservationDejaEnCours,
+  'LOUAGE_PAS_EN_TETE': FileError.louagePasEnTete,
+  'LOUAGE_PAS_COMPLET': FileError.louagePasComplet,
+  'RESERVATION_EN_ATTENTE': FileError.reservationEnAttente,
+  'PLACES_SOUS_RESERVATIONS': FileError.placesSousReservations,
 };
+
+/// Expiry time carried in the DETAIL of a `RESERVATION_EN_ATTENTE` error,
+/// or null if [error] has none.
+DateTime? expirationOf(Object? error) {
+  if (error is! PostgrestException) return null;
+  final details = error.details;
+  return details is String ? DateTime.tryParse(details) : null;
+}
 
 /// Maps a failure to a [FileError]. RPC errors are matched on the exact
 /// code the database raises. Unexpected errors are logged with their stack

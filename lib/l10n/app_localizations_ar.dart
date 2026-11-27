@@ -217,6 +217,31 @@ class AppLocalizationsAr extends AppLocalizations {
   String get fileErrDejaEnFile => 'لواجك موجود بالفعل في طابور.';
 
   @override
+  String get fileErrReservationDejaEnCours => 'لديك حجز قيد الانتظار بالفعل.';
+
+  @override
+  String get fileErrLouagePasEnTete =>
+      'لا يمكن الحجز إلا في اللواج الذي في مقدمة الطابور.';
+
+  @override
+  String get fileErrLouagePasComplet => 'يجب أن يكون اللواج ممتلئًا للانطلاق.';
+
+  @override
+  String get fileErrReservationEnAttente => 'توجد حجوزات لم يتم مسحها بعد.';
+
+  @override
+  String fileErrReservationEnAttenteJusqua(DateTime heure) {
+    final intl.DateFormat heureDateFormat = intl.DateFormat.Hm(localeName);
+    final String heureString = heureDateFormat.format(heure);
+
+    return 'يوجد حجز لم يتم مسحه بعد. ينتهي على الساعة ⁦$heureString⁩.';
+  }
+
+  @override
+  String get fileErrPlacesSousReservations =>
+      'غير ممكن: عدد المقاعد أقل من عدد الحجوزات.';
+
+  @override
   String get comingSoon => 'ستتوفر الميزات في المراحل القادمة.';
 
   @override

@@ -219,6 +219,34 @@ class AppLocalizationsFr extends AppLocalizations {
   String get fileErrDejaEnFile => 'Votre louage est déjà dans une file.';
 
   @override
+  String get fileErrReservationDejaEnCours =>
+      'Vous avez déjà une réservation en cours.';
+
+  @override
+  String get fileErrLouagePasEnTete =>
+      'Seul le louage en tête de file peut être réservé.';
+
+  @override
+  String get fileErrLouagePasComplet =>
+      'Le louage doit être complet pour partir.';
+
+  @override
+  String get fileErrReservationEnAttente =>
+      'Des réservations ne sont pas encore scannées.';
+
+  @override
+  String fileErrReservationEnAttenteJusqua(DateTime heure) {
+    final intl.DateFormat heureDateFormat = intl.DateFormat.Hm(localeName);
+    final String heureString = heureDateFormat.format(heure);
+
+    return 'Une réservation n\'est pas encore scannée. Elle expire à ⁦$heureString⁩.';
+  }
+
+  @override
+  String get fileErrPlacesSousReservations =>
+      'Impossible : moins de places que de réservations.';
+
+  @override
   String get comingSoon =>
       'Les fonctionnalités arrivent dans les prochains sprints.';
 

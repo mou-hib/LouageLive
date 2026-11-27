@@ -317,7 +317,9 @@ class _CheckEmail extends StatelessWidget {
 String signUpErrorMessage(AppLocalizations l10n, SignUpError error) =>
     switch (error) {
       SignUpError.compteExistant => l10n.signUpEmailExists,
-      SignUpError.motDePasseFaible => l10n.signUpWeakPassword,
+      SignUpError.motDePasseFaible => l10n.signUpWeakPassword(
+        minPasswordLength,
+      ),
       SignUpError.tropDeTentatives => l10n.signUpTooManyAttempts,
       SignUpError.reseau => l10n.loginNetworkError,
       SignUpError.inconnue => l10n.genericError,

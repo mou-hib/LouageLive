@@ -2,8 +2,9 @@
 /// remains the real validation.
 library;
 
-/// Supabase's default minimum password length.
-const minPasswordLength = 6;
+/// Minimum password length, equal to the Supabase project's Auth setting
+/// (minimum_password_length = 8, also in supabase/config.toml).
+const minPasswordLength = 8;
 
 /// something@something.tld, no spaces.
 final _emailPattern = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
@@ -29,10 +30,9 @@ String _compactPhone(String value) => value.replaceAll(RegExp(r'[\s.\-]'), '');
 /// Fixed prefix of the phone field (B1).
 const tunisianDialCode = '+216';
 
-/// A8 minimum length. Stricter than the Supabase Auth minimum (which only
-/// has to be <= this value), so a password that passes the checklist is
-/// never refused as too short by Supabase.
-const minNewPasswordLength = 8;
+/// A8 minimum length: the same Supabase Auth minimum, so a password that
+/// passes the checklist is never refused as too short.
+const minNewPasswordLength = minPasswordLength;
 
 /// State of the A8 checklist for a new password and its confirmation.
 typedef NewPasswordRules = ({bool longEnough, bool hasDigit, bool matches});

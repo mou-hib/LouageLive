@@ -77,7 +77,7 @@ Future<void> _fill(
   String nom = 'Ben Salah',
   String telephone = '98 123 456',
   String email = 'amel@exemple.tn',
-  String password = 'secret1',
+  String password = 'secret12',
   String? confirmation,
 }) async {
   final fields = find.byType(TextFormField);
@@ -256,7 +256,7 @@ void main() {
         findsOneWidget,
       );
       expect(find.text('Adresse e-mail invalide.'), findsOneWidget);
-      expect(find.text('Au moins 6 caractères.'), findsOneWidget);
+      expect(find.text('Au moins 8 caractères.'), findsOneWidget);
       expect(
         find.text('Les mots de passe ne correspondent pas.'),
         findsOneWidget,
@@ -277,7 +277,7 @@ void main() {
       expect(call.nom, 'Ben Salah');
       expect(call.telephone, '+21698123456');
       expect(call.email, 'amel@exemple.tn');
-      expect(call.password, 'secret1');
+      expect(call.password, 'secret12');
 
       expect(find.text('Vérifiez votre e-mail'), findsOneWidget);
       expect(find.text('amel@exemple.tn'), findsOneWidget);

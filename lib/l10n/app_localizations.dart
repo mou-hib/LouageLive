@@ -829,6 +829,186 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Les louages apparaîtront ici dès qu\'un chauffeur rejoint la file.'**
   String get galleryStatusMessage;
+
+  /// A1 : slogan sous le nom de l'application
+  ///
+  /// In fr, this message translates to:
+  /// **'Le louage en direct'**
+  String get splashTagline;
+
+  /// Pilule de langue : nom de l'AUTRE langue (FR → arabe)
+  ///
+  /// In fr, this message translates to:
+  /// **'العربية'**
+  String get otherLanguageName;
+
+  /// A2 : sous-titre sous « Connexion »
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivez votre louage en direct.'**
+  String get loginSubtitle;
+
+  /// A2 : lien sous le mot de passe
+  ///
+  /// In fr, this message translates to:
+  /// **'Mot de passe oublié ?'**
+  String get forgotPassword;
+
+  /// A2 : message du lien « Mot de passe oublié ? »
+  ///
+  /// In fr, this message translates to:
+  /// **'Pour réinitialiser votre mot de passe, contactez l\'agent de station ou l\'administrateur.'**
+  String get forgotPasswordInfo;
+
+  /// A2 : bouton pendant la connexion
+  ///
+  /// In fr, this message translates to:
+  /// **'Connexion…'**
+  String get signingIn;
+
+  /// A2 : texte avant le lien d'inscription
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas encore de compte ?'**
+  String get noAccountYet;
+
+  /// A2 : lien vers l'inscription (B1)
+  ///
+  /// In fr, this message translates to:
+  /// **'Créer un compte voyageur'**
+  String get createTravelerAccount;
+
+  /// A2 : bandeau hors connexion
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas de connexion internet. Vous pourrez vous connecter dès le retour du réseau.'**
+  String get loginOfflineBanner;
+
+  /// A2 : aide sous le mot de passe après identifiants invalides
+  ///
+  /// In fr, this message translates to:
+  /// **'Vérifiez l\'e-mail et le mot de passe.'**
+  String get loginFieldCheckCredentials;
+
+  /// A2 : aide sous l'e-mail non confirmé
+  ///
+  /// In fr, this message translates to:
+  /// **'Ouvrez le lien reçu par e-mail pour confirmer cette adresse.'**
+  String get loginFieldEmailNotConfirmed;
+
+  /// B1 : bouton d'envoi
+  ///
+  /// In fr, this message translates to:
+  /// **'Créer mon compte'**
+  String get createMyAccount;
+
+  /// B1 : texte avant le lien « Se connecter »
+  ///
+  /// In fr, this message translates to:
+  /// **'Déjà un compte ?'**
+  String get alreadyHaveAccountQuestion;
+
+  /// Bouton retour de la barre d'application
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour'**
+  String get back;
+
+  /// Écran d'erreur profil : titre
+  ///
+  /// In fr, this message translates to:
+  /// **'Profil introuvable'**
+  String get profileErrorTitle;
+
+  /// A8 : titre
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau mot de passe'**
+  String get changePasswordTitle;
+
+  /// A8 : compte connecté
+  ///
+  /// In fr, this message translates to:
+  /// **'Connecté en tant que {email}'**
+  String signedInAs(String email);
+
+  /// A8 : bandeau d'avertissement
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre compte a été créé avec un mot de passe temporaire. Choisissez-en un nouveau pour continuer.'**
+  String get changePasswordTempBanner;
+
+  /// A8 : champ
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau mot de passe'**
+  String get newPasswordLabel;
+
+  /// A8 : champ de confirmation
+  ///
+  /// In fr, this message translates to:
+  /// **'Confirmer'**
+  String get confirmShort;
+
+  /// A8 : règle de longueur
+  ///
+  /// In fr, this message translates to:
+  /// **'Au moins {min} caractères'**
+  String ruleMinLength(int min);
+
+  /// A8 : règle chiffre
+  ///
+  /// In fr, this message translates to:
+  /// **'Au moins un chiffre'**
+  String get ruleDigit;
+
+  /// A8 : règle confirmation
+  ///
+  /// In fr, this message translates to:
+  /// **'Les deux mots de passe sont identiques'**
+  String get ruleMatch;
+
+  /// Lecteur d'écran : règle remplie
+  ///
+  /// In fr, this message translates to:
+  /// **'{rule} : respecté'**
+  String ruleMetA11y(String rule);
+
+  /// Lecteur d'écran : règle non remplie
+  ///
+  /// In fr, this message translates to:
+  /// **'{rule} : non respecté'**
+  String ruleNotMetA11y(String rule);
+
+  /// A8 : bouton principal
+  ///
+  /// In fr, this message translates to:
+  /// **'Enregistrer et continuer'**
+  String get saveAndContinue;
+
+  /// A8 : bouton pendant l'enregistrement
+  ///
+  /// In fr, this message translates to:
+  /// **'Enregistrement…'**
+  String get saving;
+
+  /// A8 : Supabase weak_password
+  ///
+  /// In fr, this message translates to:
+  /// **'Mot de passe trop faible ou trop courant. Choisissez-en un autre.'**
+  String get changePwdErrWeak;
+
+  /// A8 : Supabase same_password
+  ///
+  /// In fr, this message translates to:
+  /// **'Le nouveau mot de passe doit être différent du mot de passe temporaire.'**
+  String get changePwdErrSame;
+
+  /// A8 : session expirée / réauthentification
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre session a expiré. Reconnectez-vous puis recommencez.'**
+  String get changePwdErrSession;
 }
 
 class _AppLocalizationsDelegate

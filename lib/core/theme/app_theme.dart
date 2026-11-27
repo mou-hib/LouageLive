@@ -229,6 +229,21 @@ abstract final class LLSize {
 
   /// Max width of centred content (status screens) on tablets.
   static const double contentMaxW = 420;
+
+  /// LLLogo: splash (A1) and screen headers (A2, B1, A8).
+  static const double logoSplash = 112;
+  static const double logoHeader = 36;
+
+  /// Thin progress bar of the splash, and its distance from the bottom.
+  static const double progressThin = 3;
+  static const double progressThinW = 120;
+
+  /// Toned circle + glyph at the top of a status view.
+  static const double statusIcon = 72;
+  static const double statusGlyph = 36;
+
+  /// Icon of a password checklist row (A8).
+  static const double checklistIcon = 20;
 }
 
 /// Durations are functions of the context: they drop to zero when the

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:louage_live/features/auth/data/auth_repository.dart';
+import 'package:louage_live/features/auth/data/change_password_error.dart';
 import 'package:louage_live/features/auth/data/login_error.dart';
 import 'package:louage_live/features/auth/data/profil.dart';
 import 'package:louage_live/features/auth/data/sign_up_error.dart';
@@ -28,10 +29,38 @@ class FakeAuthRepository implements AuthRepository {
   /// When set, signIn fails with this error.
   LoginError? signInError;
 
+  /// When set, signIn waits for it (loading state tests).
+  Completer<void>? signInGate;
+  int signInCalls = 0;
+
   /// When set, signUp fails with this error; otherwise returns [signUpOutcome].
   SignUpError? signUpError;
   SignUpOutcome signUpOutcome = SignUpOutcome.confirmationEmail;
   final signUpCalls = <SignUpCall>[];
+
+  /// A8: e-mail of the signed-in user.
+  @override
+  String? currentUserEmail = 'chauffeur3@louage.tn';
+
+  /// A8: when set, updatePassword / markPasswordChanged fail with it.
+  ChangePasswordError? updatePasswordError;
+  ChangePasswordError? markPasswordChangedError;
+  final updatePasswordCalls = <String>[];
+  int markPasswordChangedCalls = 0;
+
+  @override
+  Future<void> updatePassword(String password) async {
+    updatePasswordCalls.add(password);
+    if (updatePasswordError case final e?) throw ChangePasswordException(e);
+  }
+
+  @override
+  Future<void> markPasswordChanged() async {
+    markPasswordChangedCalls++;
+    if (markPasswordChangedError case final e?) {
+      throw ChangePasswordException(e);
+    }
+  }
 
   void emit(AuthChangeEvent event) => _events.add(AuthState(event, null));
 
@@ -58,6 +87,8 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   Future<void> signIn({required String email, required String password}) async {
+    signInCalls++;
+    if (signInGate case final gate?) await gate.future;
     if (signInError case final error?) throw LoginException(error);
   }
 

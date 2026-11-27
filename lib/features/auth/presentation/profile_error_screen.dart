@@ -27,7 +27,8 @@ class ProfileErrorScreen extends ConsumerWidget {
         child: StatusView(
           icon: Icons.error_outline,
           tone: StatusTone.error,
-          title: message,
+          title: l10n.profileErrorTitle,
+          message: message,
           primary: LLButton(
             icon: Icons.refresh,
             label: l10n.retry,

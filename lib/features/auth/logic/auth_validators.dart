@@ -25,3 +25,24 @@ String normalizeTunisianPhone(String value) {
 }
 
 String _compactPhone(String value) => value.replaceAll(RegExp(r'[\s.\-]'), '');
+
+/// Fixed prefix of the phone field (B1).
+const tunisianDialCode = '+216';
+
+/// A8 minimum length. Stricter than the Supabase Auth minimum (which only
+/// has to be <= this value), so a password that passes the checklist is
+/// never refused as too short by Supabase.
+const minNewPasswordLength = 8;
+
+/// State of the A8 checklist for a new password and its confirmation.
+typedef NewPasswordRules = ({bool longEnough, bool hasDigit, bool matches});
+
+NewPasswordRules newPasswordRules(String password, String confirmation) => (
+  longEnough: password.length >= minNewPasswordLength,
+  hasDigit: password.contains(RegExp(r'[0-9]')),
+  matches: password.isNotEmpty && password == confirmation,
+);
+
+extension NewPasswordRulesX on NewPasswordRules {
+  bool get allPass => longEnough && hasDigit && matches;
+}

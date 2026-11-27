@@ -45,7 +45,28 @@ class AuthSession extends ChangeNotifier {
 
   UserRole? get role => profil?.role;
 
+  /// A8: the account still has its temporary password.
+  bool get mustChangePassword => profil?.doitChangerMdp ?? false;
+
+  /// True while [changePassword] runs.
+  bool _changingPassword = false;
+
+  /// Password already accepted by Supabase in this session, when the RPC
+  /// failed afterwards: a retry with the same value skips updateUser
+  /// (which would answer `same_password`) and only redoes the RPC.
+  String? _passwordAlreadySet;
+
   void _onAuthEvent(AuthState state) {
+    // updateUser emits userUpdated before the RPC has run: reloading the
+    // profile then would flash the splash and still say doit_changer_mdp.
+    // changePassword refreshes once both steps are done.
+    if (_changingPassword && state.event == AuthChangeEvent.userUpdated) {
+      return;
+    }
+    if (state.event == AuthChangeEvent.signedIn ||
+        state.event == AuthChangeEvent.signedOut) {
+      _passwordAlreadySet = null;
+    }
     switch (state.event) {
       case AuthChangeEvent.initialSession:
       case AuthChangeEvent.signedIn:
@@ -59,6 +80,27 @@ class AuthSession extends ChangeNotifier {
 
   /// Reloads the profile (the "Réessayer" button of the error screen).
   Future<void> retry() => _refresh();
+
+  /// A8: sets the new password, marks it changed (RPC
+  /// `marquer_mdp_change`), then reloads the profile so the router leaves
+  /// /changer-mdp for the role home.
+  ///
+  /// Throws a `ChangePasswordException`; the profile is then not reloaded
+  /// and the user stays on A8.
+  Future<void> changePassword(String password) async {
+    _changingPassword = true;
+    try {
+      if (password != _passwordAlreadySet) {
+        await _repository.updatePassword(password);
+        _passwordAlreadySet = password;
+      }
+      await _repository.markPasswordChanged();
+    } finally {
+      _changingPassword = false;
+    }
+    _passwordAlreadySet = null;
+    await _refresh();
+  }
 
   Future<void> _refresh() async {
     final generation = ++_generation;

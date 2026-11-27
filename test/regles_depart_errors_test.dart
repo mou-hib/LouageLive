@@ -21,6 +21,9 @@ void main() {
       'LOUAGE_PAS_COMPLET': FileError.louagePasComplet,
       'RESERVATION_EN_ATTENTE': FileError.reservationEnAttente,
       'PLACES_SOUS_RESERVATIONS': FileError.placesSousReservations,
+      'LOUAGE_COMPLET': FileError.louageComplet,
+      'QUITTER_IMPOSSIBLE_EN_TETE': FileError.quitterImpossibleEnTete,
+      'PASSAGE_DEJA_TERMINE': FileError.passageDejaTermine,
     };
     cases.forEach((code, expected) {
       test('$code → ${expected.name}', () {

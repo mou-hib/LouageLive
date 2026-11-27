@@ -546,4 +546,231 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get changePwdErrSession =>
       'انتهت جلستك. سجّل الدخول من جديد ثم أعد المحاولة.';
+
+  @override
+  String ligneLabel(String depart, String arrivee) {
+    return '$depart ← $arrivee';
+  }
+
+  @override
+  String get statusHorsFile => 'خارج الطابور';
+
+  @override
+  String chauffeurGreeting(String prenom) {
+    return 'مرحبًا $prenom';
+  }
+
+  @override
+  String get chauffeurGreetingNoName => 'مرحبًا';
+
+  @override
+  String get myLouage => 'لواجي';
+
+  @override
+  String louagePlaces(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مقعدًا',
+      few: '$count مقاعد',
+      two: 'مقعدان',
+      one: 'مقعد واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get arrivedAtStation => 'وصلت إلى المحطة؟';
+
+  @override
+  String get arrivedAtStationHint =>
+      'امسح رمز QR المعروض عند الشبّاك للانضمام إلى الطابور.';
+
+  @override
+  String get joinTheQueue => 'الانضمام إلى الطابور';
+
+  @override
+  String get myDepartures => 'رحلاتي';
+
+  @override
+  String get chauffeurOfflineBanner =>
+      'لا يوجد اتصال. قد تكون الأرقام المعروضة قديمة.';
+
+  @override
+  String get close => 'إغلاق';
+
+  @override
+  String get enterCode => 'إدخال الرمز';
+
+  @override
+  String get enterCodeTitle => 'رمز المحطة';
+
+  @override
+  String get enterCodeHint => 'الرمز المطبوع تحت رمز QR';
+
+  @override
+  String get validate => 'تأكيد';
+
+  @override
+  String stationRecognized(String nom) {
+    return 'تم التعرّف على محطة $nom';
+  }
+
+  @override
+  String louagesAhead(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count لواجًا أمامك',
+      few: '$count لواجات أمامك',
+      two: 'لواجان أمامك',
+      one: 'لواج واحد أمامك',
+      zero: 'لا يوجد لواج أمامك',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get enterQueue => 'دخول الطابور';
+
+  @override
+  String get scanAnother => 'مسح رمز آخر';
+
+  @override
+  String get queueYourPlace => 'مكانك في الطابور';
+
+  @override
+  String queueRankOrdinal(int rank) {
+    return '$rank';
+  }
+
+  @override
+  String yourLouage(String plaque) {
+    return 'لواجك: $plaque';
+  }
+
+  @override
+  String get queueTitle => 'الطابور';
+
+  @override
+  String get queueYou => 'أنت';
+
+  @override
+  String get queueStayNear =>
+      'ابقَ قرب لواجك. سيرنّ الهاتف عندما تصل إلى رأس الطابور.';
+
+  @override
+  String get leaveQueue => 'مغادرة الطابور';
+
+  @override
+  String get leaveQueueConfirmTitle => 'مغادرة الطابور؟';
+
+  @override
+  String leaveQueueConfirmBody(String plaque) {
+    return 'سيفقد $plaque مكانه في الطابور.';
+  }
+
+  @override
+  String get headAlertTitle => 'حان دورك!';
+
+  @override
+  String headAlertBody(String ligne) {
+    return 'لواجك في رأس طابور $ligne.';
+  }
+
+  @override
+  String get headAlertChannel => 'رأس الطابور';
+
+  @override
+  String headOfQueueSubtitle(String plaque) {
+    return '$plaque · في رأس الطابور';
+  }
+
+  @override
+  String seatsFree(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مقعدًا شاغرًا',
+      few: '$count مقاعد شاغرة',
+      two: 'مقعدان شاغران',
+      one: 'مقعد شاغر واحد',
+      zero: 'لا توجد مقاعد شاغرة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String reservationsToScan(int count, DateTime heure) {
+    final intl.DateFormat heureDateFormat = intl.DateFormat.Hm(localeName);
+    final String heureString = heureDateFormat.format(heure);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count حجزًا للمسح',
+      few: '$count حجوزات للمسح',
+      two: 'حجزان للمسح',
+      one: 'حجز واحد للمسح',
+    );
+    return '$_temp0 · ينتهي على الساعة ⁦$heureString⁩';
+  }
+
+  @override
+  String get scanReservation => 'مسح حجز';
+
+  @override
+  String get completTitle => 'اللواج ممتلئ';
+
+  @override
+  String get completPlaceholder => 'شاشة الانطلاق قادمة في المرحلة التالية.';
+
+  @override
+  String get retireTitle => 'سُحب اللواج من الطابور';
+
+  @override
+  String retireMessage(
+    String station,
+    String plaque,
+    String ligne,
+    DateTime heure,
+  ) {
+    final intl.DateFormat heureDateFormat = intl.DateFormat.Hm(localeName);
+    final String heureString = heureDateFormat.format(heure);
+
+    return 'قام عون محطة $station بسحب $plaque من طابور $ligne على الساعة ⁦$heureString⁩.';
+  }
+
+  @override
+  String retireMessageNoTime(String station, String plaque, String ligne) {
+    return 'قام عون محطة $station بسحب $plaque من طابور $ligne.';
+  }
+
+  @override
+  String get retireTalkToAgent => 'تحدّث مع العون عند الشبّاك.';
+
+  @override
+  String get joinAQueue => 'الانضمام إلى طابور';
+
+  @override
+  String get backToHome => 'العودة إلى الرئيسية';
+
+  @override
+  String get comingSoonTitle => 'قريبًا';
+
+  @override
+  String get fileErrLouageComplet => 'اللواج ممتلئ بالفعل.';
+
+  @override
+  String get statusQuitte => 'غادر الطابور';
+
+  @override
+  String get leftQueue => 'غادرت الطابور.';
+
+  @override
+  String get fileErrQuitterImpossibleEnTete =>
+      'لواجك في رأس الطابور ولا يمكنه مغادرته الآن. تحدّث مع العون.';
+
+  @override
+  String get fileErrPassageDejaTermine => 'لواجك لم يعد في هذا الطابور.';
 }

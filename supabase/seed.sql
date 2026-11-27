@@ -22,23 +22,29 @@ insert into public.lignes (id, station_id, ville_arrivee, tarif) values
 --    (cocher "Auto Confirm User") :
 --      admin@louage.test, agent1@louage.test,
 --      chauffeur1@louage.test, chauffeur2@louage.test, chauffeur3@louage.test,
---      voyageur1@louage.test
+--      voyageur1@louage.test, voyageur2@louage.test
 --    Le trigger crée leur profil avec le rôle 'voyageur'.
 -- 2) Puis exécuter ce bloc pour donner les rôles et créer les louages :
 
-update public.profils set role = 'admin', nom = 'Admin', prenom = 'Test'
+update public.profils set role = 'admin', prenom = 'Admin', nom = 'Louage Live'
 where id = (select id from auth.users where email = 'admin@louage.test');
 
 update public.profils
-set role = 'agent', ligne_id = '00000000-0000-0000-0000-00000000b001', nom = 'Agent', prenom = 'Tunis-Sousse'
+set role = 'agent', ligne_id = '00000000-0000-0000-0000-00000000b001', prenom = 'Anis', nom = 'Gharbi'
 where id = (select id from auth.users where email = 'agent1@louage.test');
 
-update public.profils set role = 'chauffeur', nom = 'Chauffeur', prenom = 'Un'
+-- Noms réalistes (ceux des maquettes) : l'accueil chauffeur affiche « Bonjour <prénom> ».
+update public.profils set role = 'chauffeur', prenom = 'Karim', nom = 'Saïdi'
 where id = (select id from auth.users where email = 'chauffeur1@louage.test');
-update public.profils set role = 'chauffeur', nom = 'Chauffeur', prenom = 'Deux'
+update public.profils set role = 'chauffeur', prenom = 'Nabil', nom = 'Hammami'
 where id = (select id from auth.users where email = 'chauffeur2@louage.test');
-update public.profils set role = 'chauffeur', nom = 'Chauffeur', prenom = 'Trois'
+update public.profils set role = 'chauffeur', prenom = 'Hédi', nom = 'Ben Amor'
 where id = (select id from auth.users where email = 'chauffeur3@louage.test');
+
+update public.profils set prenom = 'Mouhib', nom = 'Mejri'
+where id = (select id from auth.users where email = 'voyageur1@louage.test');
+update public.profils set prenom = 'Amira', nom = 'Ben Salah'
+where id = (select id from auth.users where email = 'voyageur2@louage.test');
 
 insert into public.louages (immatriculation, chauffeur_id)
 select v.immat, u.id

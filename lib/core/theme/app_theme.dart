@@ -68,6 +68,12 @@ class LLColors extends ThemeExtension<LLColors> {
   /// Text on a brandRed badge (head of queue rank).
   static const onBrandRed = Color(0xFFFFFFFF);
 
+  /// Over the live camera (C2), whatever the theme: frame, icons, text, and
+  /// the scrim around the scan window.
+  static const onCamera = Color(0xFFFFFFFF);
+  static const cameraScrim = Color(0x99000000);
+  static const cameraButton = Color(0x66000000);
+
   static const light = LLColors(
     brandRed: Color(0xFFE1251B),
     action: Color(0xFF151515),
@@ -244,6 +250,27 @@ abstract final class LLSize {
 
   /// Icon of a password checklist row (A8).
   static const double checklistIcon = 20;
+
+  /// Chauffeur scanner (C2): QR window, its corner radius is [LLRadius.lg].
+  static const double scanFrame = 200;
+  static const double scanFrameBorder = 3;
+
+  /// Red scan line of the QR illustration (C1) and its frame.
+  static const double scanLine = 3;
+  static const double qrIllustration = 160;
+
+  /// Round icon buttons over the camera (close, torch).
+  static const double roundButton = 56;
+
+  /// "This is you" edge of the chauffeur's row in a queue (C3).
+  static const double highlightEdge = 4;
+
+  /// Rank badge of a queue row.
+  static const double rankBadge = 36;
+
+  /// Grab handle of a bottom sheet.
+  static const double sheetHandleW = 40;
+  static const double sheetHandleH = 4;
 }
 
 /// Durations are functions of the context: they drop to zero when the
@@ -286,6 +313,24 @@ abstract final class LLText {
     fontFamily: fontFamily,
     fontSize: 64,
     height: 64 / 64,
+    fontWeight: FontWeight.w700,
+    fontFeatures: _tnum,
+  );
+
+  /// Chauffeur queue rank (C3): "3e" read from arm's length.
+  static const boardRank = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 96,
+    height: 96 / 96,
+    fontWeight: FontWeight.w700,
+    fontFeatures: _tnum,
+  );
+
+  /// Chauffeur seat count (C4).
+  static const boardCount = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 88,
+    height: 88 / 88,
     fontWeight: FontWeight.w700,
     fontFeatures: _tnum,
   );

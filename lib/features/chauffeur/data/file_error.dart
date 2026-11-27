@@ -15,6 +15,9 @@ enum FileError {
   louagePasComplet,
   reservationEnAttente,
   placesSousReservations,
+  louageComplet,
+  quitterImpossibleEnTete,
+  passageDejaTermine,
   reseau,
   inconnue,
 }
@@ -47,6 +50,9 @@ const _codes = {
   'LOUAGE_PAS_COMPLET': FileError.louagePasComplet,
   'RESERVATION_EN_ATTENTE': FileError.reservationEnAttente,
   'PLACES_SOUS_RESERVATIONS': FileError.placesSousReservations,
+  'LOUAGE_COMPLET': FileError.louageComplet,
+  'QUITTER_IMPOSSIBLE_EN_TETE': FileError.quitterImpossibleEnTete,
+  'PASSAGE_DEJA_TERMINE': FileError.passageDejaTermine,
 };
 
 /// Expiry time carried in the DETAIL of a `RESERVATION_EN_ATTENTE` error,

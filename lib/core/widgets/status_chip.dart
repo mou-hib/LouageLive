@@ -6,12 +6,15 @@ import '../theme/app_theme.dart';
 /// Every state a [StatusChip] can show. Passage states come from
 /// `etat_passage`, reservation states from `etat_reservation`.
 enum ChipState {
+  /// The chauffeur's louage is in no queue (C1).
+  horsFile,
   enAttente,
   enRemplissage,
   presqueComplet,
   complet,
   parti,
   retire,
+  quitte,
   reservationEnAttente,
   reservationConfirmee,
   reservationAnnulee,
@@ -30,6 +33,7 @@ enum ChipState {
     'COMPLET' => complet,
     'PARTI' => parti,
     'RETIRE' => retire,
+    'QUITTE' => quitte,
     _ => throw FormatException('Unknown etat_passage: $etat'),
   };
 
@@ -46,12 +50,14 @@ enum ChipState {
   bool get live => this == enRemplissage || this == presqueComplet;
 
   String label(AppLocalizations l10n) => switch (this) {
+    horsFile => l10n.statusHorsFile,
     enAttente => l10n.statusEnAttente,
     enRemplissage => l10n.statusEnRemplissage,
     presqueComplet => l10n.statusPresqueComplet,
     complet => l10n.statusComplet,
     parti => l10n.statusParti,
     retire => l10n.statusRetire,
+    quitte => l10n.statusQuitte,
     reservationEnAttente => l10n.reservationEnAttente,
     reservationConfirmee => l10n.reservationConfirmee,
     reservationAnnulee => l10n.reservationAnnulee,
@@ -65,7 +71,11 @@ enum ChipState {
     complet ||
     reservationAnnulee ||
     reservationExpiree => (c.seatFullTint, c.seatFull),
-    enAttente || parti || retire => (c.neutralTint, c.inkMuted),
+    horsFile ||
+    enAttente ||
+    parti ||
+    retire ||
+    quitte => (c.neutralTint, c.inkMuted),
   };
 }
 

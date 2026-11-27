@@ -1045,6 +1045,311 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Votre session a expiré. Reconnectez-vous puis recommencez.'**
   String get changePwdErrSession;
+
+  /// Nom d'une ligne (ville de départ → arrivée)
+  ///
+  /// In fr, this message translates to:
+  /// **'{depart} → {arrivee}'**
+  String ligneLabel(String depart, String arrivee);
+
+  /// Pastille d'état : louage dans aucune file (C1)
+  ///
+  /// In fr, this message translates to:
+  /// **'Hors file'**
+  String get statusHorsFile;
+
+  /// C1 : salutation
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonjour {prenom}'**
+  String chauffeurGreeting(String prenom);
+
+  /// C1 : salutation sans prénom
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonjour'**
+  String get chauffeurGreetingNoName;
+
+  /// C1 : surtitre de la carte du louage
+  ///
+  /// In fr, this message translates to:
+  /// **'Mon louage'**
+  String get myLouage;
+
+  /// C1 : capacité du louage
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1{1 place} other{{count} places}}'**
+  String louagePlaces(int count);
+
+  /// C1 : titre
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrivé à la station ?'**
+  String get arrivedAtStation;
+
+  /// C1 : explication
+  ///
+  /// In fr, this message translates to:
+  /// **'Scannez le QR code affiché au guichet pour rejoindre la file.'**
+  String get arrivedAtStationHint;
+
+  /// C1 : bouton principal (ouvre le scanner)
+  ///
+  /// In fr, this message translates to:
+  /// **'Rejoindre la file'**
+  String get joinTheQueue;
+
+  /// C1 : lien vers l'historique des départs
+  ///
+  /// In fr, this message translates to:
+  /// **'Mes départs'**
+  String get myDepartures;
+
+  /// Écrans chauffeur : bandeau hors connexion
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas de connexion. Les chiffres affichés peuvent être anciens.'**
+  String get chauffeurOfflineBanner;
+
+  /// C2 : bouton rond de fermeture du scanner
+  ///
+  /// In fr, this message translates to:
+  /// **'Fermer'**
+  String get close;
+
+  /// C2 : saisie manuelle si le scan échoue
+  ///
+  /// In fr, this message translates to:
+  /// **'Saisir le code'**
+  String get enterCode;
+
+  /// C2 : titre de la saisie manuelle
+  ///
+  /// In fr, this message translates to:
+  /// **'Code de la station'**
+  String get enterCodeTitle;
+
+  /// C2 : aide du champ de saisie manuelle
+  ///
+  /// In fr, this message translates to:
+  /// **'Code imprimé sous le QR'**
+  String get enterCodeHint;
+
+  /// C2 : valider le code saisi
+  ///
+  /// In fr, this message translates to:
+  /// **'Valider'**
+  String get validate;
+
+  /// C2 : QR de station valide
+  ///
+  /// In fr, this message translates to:
+  /// **'Station {nom} reconnue'**
+  String stationRecognized(String nom);
+
+  /// C2 / C3 : louages devant le chauffeur
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =0{Aucun louage devant vous} =1{1 louage devant vous} other{{count} louages devant vous}}'**
+  String louagesAhead(int count);
+
+  /// C2 : bouton de la feuille « Choisissez votre ligne »
+  ///
+  /// In fr, this message translates to:
+  /// **'Entrer dans la file'**
+  String get enterQueue;
+
+  /// C2 : rescanner
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner un autre QR'**
+  String get scanAnother;
+
+  /// C3 : surtitre de la carte du rang
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre place dans la file'**
+  String get queueYourPlace;
+
+  /// C3 : rang en grand (3e)
+  ///
+  /// In fr, this message translates to:
+  /// **'{rank, plural, =1{1er} other{{rank}e}}'**
+  String queueRankOrdinal(int rank);
+
+  /// C3 : rappel de la plaque
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre louage : {plaque}'**
+  String yourLouage(String plaque);
+
+  /// C3 : titre de la liste
+  ///
+  /// In fr, this message translates to:
+  /// **'La file'**
+  String get queueTitle;
+
+  /// C3 : marque la ligne du chauffeur dans la file
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous'**
+  String get queueYou;
+
+  /// C3 : encadré d'information
+  ///
+  /// In fr, this message translates to:
+  /// **'Restez près de votre louage. Le téléphone sonne quand vous passez en tête.'**
+  String get queueStayNear;
+
+  /// C3 : bouton contour
+  ///
+  /// In fr, this message translates to:
+  /// **'Quitter la file'**
+  String get leaveQueue;
+
+  /// C3 : titre de la feuille de confirmation
+  ///
+  /// In fr, this message translates to:
+  /// **'Quitter la file ?'**
+  String get leaveQueueConfirmTitle;
+
+  /// C3 : texte de la feuille de confirmation
+  ///
+  /// In fr, this message translates to:
+  /// **'{plaque} perdra sa place dans la file.'**
+  String leaveQueueConfirmBody(String plaque);
+
+  /// Notification locale : louage passé en tête
+  ///
+  /// In fr, this message translates to:
+  /// **'C\'est votre tour !'**
+  String get headAlertTitle;
+
+  /// Notification locale : corps
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre louage est en tête de la file {ligne}.'**
+  String headAlertBody(String ligne);
+
+  /// Nom du canal de notification Android
+  ///
+  /// In fr, this message translates to:
+  /// **'Tête de file'**
+  String get headAlertChannel;
+
+  /// C4 : sous-titre de la barre
+  ///
+  /// In fr, this message translates to:
+  /// **'{plaque} · en tête de file'**
+  String headOfQueueSubtitle(String plaque);
+
+  /// C4 : places libres
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =0{Aucune place libre} =1{1 place libre} other{{count} places libres}}'**
+  String seatsFree(int count);
+
+  /// C4 : réservations pas encore scannées
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1{1 réservation à scanner} other{{count} réservations à scanner}} · expire à ⁦{heure}⁩'**
+  String reservationsToScan(int count, DateTime heure);
+
+  /// C4 : bouton contour (scanner du QR voyageur)
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner une réservation'**
+  String get scanReservation;
+
+  /// C6 (provisoire) : titre
+  ///
+  /// In fr, this message translates to:
+  /// **'Louage complet'**
+  String get completTitle;
+
+  /// C6 (provisoire) : message
+  ///
+  /// In fr, this message translates to:
+  /// **'L\'écran de départ arrive à la prochaine étape.'**
+  String get completPlaceholder;
+
+  /// C8 : titre
+  ///
+  /// In fr, this message translates to:
+  /// **'Louage retiré de la file'**
+  String get retireTitle;
+
+  /// C8 : message
+  ///
+  /// In fr, this message translates to:
+  /// **'L\'agent de la station {station} a retiré {plaque} de la file {ligne} à ⁦{heure}⁩.'**
+  String retireMessage(
+    String station,
+    String plaque,
+    String ligne,
+    DateTime heure,
+  );
+
+  /// C8 : message sans heure
+  ///
+  /// In fr, this message translates to:
+  /// **'L\'agent de la station {station} a retiré {plaque} de la file {ligne}.'**
+  String retireMessageNoTime(String station, String plaque, String ligne);
+
+  /// C8 : encadré d'information
+  ///
+  /// In fr, this message translates to:
+  /// **'Parlez à l\'agent au guichet.'**
+  String get retireTalkToAgent;
+
+  /// C8 : bouton principal
+  ///
+  /// In fr, this message translates to:
+  /// **'Rejoindre une file'**
+  String get joinAQueue;
+
+  /// C8 : lien
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour à l\'accueil'**
+  String get backToHome;
+
+  /// Écran provisoire (Mes départs, scanner de réservation)
+  ///
+  /// In fr, this message translates to:
+  /// **'Bientôt disponible'**
+  String get comingSoonTitle;
+
+  /// +1 refusé : louage complet (LOUAGE_COMPLET)
+  ///
+  /// In fr, this message translates to:
+  /// **'Le louage est déjà complet.'**
+  String get fileErrLouageComplet;
+
+  /// Pastille d'état : le chauffeur a quitté la file (QUITTE)
+  ///
+  /// In fr, this message translates to:
+  /// **'Sorti de la file'**
+  String get statusQuitte;
+
+  /// C3 : confirmation après quitter_file
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous avez quitté la file.'**
+  String get leftQueue;
+
+  /// Sortie refusée : louage en tête (QUITTER_IMPOSSIBLE_EN_TETE)
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre louage est en tête de file : il ne peut plus la quitter. Parlez à l\'agent.'**
+  String get fileErrQuitterImpossibleEnTete;
+
+  /// Refus : passage déjà terminé (PASSAGE_DEJA_TERMINE)
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre louage n\'est plus dans cette file.'**
+  String get fileErrPassageDejaTermine;
 }
 
 class _AppLocalizationsDelegate

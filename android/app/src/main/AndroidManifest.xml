@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- QR scanning (mobile_scanner). Camera is optional so devices without one can still install. -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Android 13+: "vous passez en tête" local notification (C3). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <application
         android:label="Louage Live"

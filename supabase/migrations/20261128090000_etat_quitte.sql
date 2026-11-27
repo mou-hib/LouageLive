@@ -1,0 +1,14 @@
+-- =====================================================================
+-- Louage Live — état QUITTE (le chauffeur a quitté la file lui-même)
+-- =====================================================================
+-- Distinct de RETIRE (retiré par un agent) : l'app n'affiche l'écran C8
+-- « retiré par l'agent » que pour RETIRE.
+-- QUITTE est un état terminal : hors de file_attente et des index
+-- un_passage_actif_par_louage / une_tete_par_ligne (qui ne listent que
+-- EN_ATTENTE, EN_REMPLISSAGE, COMPLET), donc la file se re-classe seule
+-- et le louage peut rejoindre une file ensuite.
+--
+-- Fichier séparé : une valeur ajoutée à un enum n'est utilisable qu'après
+-- le commit de la transaction qui l'ajoute (voir 20261128090100).
+-- =====================================================================
+alter type public.etat_passage add value if not exists 'QUITTE';

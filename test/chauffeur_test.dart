@@ -1,102 +1,28 @@
 import 'dart:async';
 import 'dart:io' show SocketException;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:louage_live/core/l10n/app_localizations_delegates.dart';
-import 'package:louage_live/core/l10n/locale_provider.dart';
-import 'package:louage_live/features/chauffeur/data/chauffeur_repository.dart';
+import 'package:louage_live/core/widgets/ll_button.dart';
+import 'package:louage_live/core/widgets/plate_text.dart';
 import 'package:louage_live/features/chauffeur/data/file_error.dart';
 import 'package:louage_live/features/chauffeur/data/louage.dart';
 import 'package:louage_live/features/chauffeur/data/passage.dart';
 import 'package:louage_live/features/chauffeur/data/station.dart';
-import 'package:louage_live/features/chauffeur/logic/chauffeur_providers.dart';
 import 'package:louage_live/features/chauffeur/presentation/chauffeur_home_screen.dart';
-import 'package:louage_live/l10n/app_localizations.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show PostgrestException;
 
-/// ChauffeurRepository without Supabase.
-class FakeChauffeurRepository implements ChauffeurRepository {
-  FakeChauffeurRepository({this.louage, this.passage, this.error});
+import 'support/fake_chauffeur_repository.dart';
 
-  Louage? louage;
-  Passage? passage;
-
-  /// When set, every call fails with it.
-  FileError? error;
-
-  void _maybeFail() {
-    if (error case final e?) throw FileAttenteException(e);
-  }
-
-  @override
-  Future<Louage?> monLouage() async {
-    _maybeFail();
-    return louage;
-  }
-
-  @override
-  Future<Passage?> monPassageActif() async {
-    _maybeFail();
-    return passage;
-  }
-
-  @override
-  Future<Station> lignesDeStation(String codeQr) async {
-    _maybeFail();
-    return const Station(
-      id: 's1',
-      nom: 'Bab Saadoun',
-      ville: 'Tunis',
-      lignes: [],
-    );
-  }
-
-  @override
-  Future<void> rejoindreFile(String codeQr, String ligneId) async =>
-      _maybeFail();
-}
-
-const _louage = Louage(id: 'l1', immatriculation: '123 TU 4567', capacite: 8);
-const _passage = Passage(
-  id: 'p1',
-  etat: EtatPassage.enAttente,
-  placesOccupees: 0,
-  capacite: 8,
-  stationNom: 'Bab Saadoun',
-  villeArrivee: 'Sousse',
-);
+const _louage = testLouage;
+final _plate = PlateText.isolate('123 TU 4567');
 
 Future<void> _pumpHome(
   WidgetTester tester,
   FakeChauffeurRepository repo, {
   Locale locale = const Locale('fr'),
-}) async {
-  SharedPreferences.setMockInitialValues({});
-  final prefs = await SharedPreferences.getInstance();
-  final container = ProviderContainer(
-    overrides: [
-      sharedPreferencesProvider.overrideWithValue(prefs),
-      chauffeurRepositoryProvider.overrideWithValue(repo),
-    ],
-  );
-  addTearDown(container.dispose);
-  await tester.pumpWidget(
-    UncontrolledProviderScope(
-      container: container,
-      child: MaterialApp(
-        locale: locale,
-        supportedLocales: AppLocalizations.supportedLocales,
-        localizationsDelegates: appLocalizationsDelegates,
-        home: const ChauffeurHomeScreen(),
-      ),
-    ),
-  );
-  await tester.pumpAndSettle();
-}
+}) => pumpChauffeurHome(tester, repo, locale: locale);
 
 void main() {
   group('classifyFileError', () {
@@ -159,15 +85,49 @@ void main() {
         'etat': 'EN_REMPLISSAGE',
         'places_occupees': 3,
         'capacite': 8,
+        'ligne_id': 'g1',
+        'heure_retrait': null,
         'lignes': {
           'ville_arrivee': 'Sousse',
-          'stations': {'nom': 'Bab Saadoun'},
+          'stations': {'nom': 'Bab Saadoun', 'ville': 'Tunis'},
         },
         'louages': {'chauffeur_id': 'u1', 'actif': true},
       });
       expect(p.etat, EtatPassage.enRemplissage);
       expect(p.stationNom, 'Bab Saadoun');
       expect(p.villeArrivee, 'Sousse');
+      expect(p.stationVille, 'Tunis');
+      expect(p.ligneId, 'g1');
+      expect(p.heureRetrait, isNull);
+    });
+
+    test('Passage.fromRow reads heure_retrait (RETIRE)', () {
+      final p = Passage.fromRow({
+        'id': 'p1',
+        'etat': 'RETIRE',
+        'places_occupees': 0,
+        'capacite': 8,
+        'ligne_id': 'g1',
+        'heure_retrait': '2026-11-27T10:15:00+00:00',
+        'lignes': {
+          'ville_arrivee': 'Sousse',
+          'stations': {'nom': 'Bab Saadoun', 'ville': 'Tunis'},
+        },
+      });
+      expect(p.heureRetrait, DateTime.utc(2026, 11, 27, 10, 15));
+    });
+
+    test('FileEntree.fromRow reads a file_attente row', () {
+      final e = FileEntree.fromRow({
+        'passage_id': 'p1',
+        'immatriculation': '123 TU 4567',
+        'etat': 'EN_ATTENTE',
+        'places_occupees': 0,
+        'capacite': 8,
+        'rang': 3,
+      });
+      expect(e.rang, 3);
+      expect(e.etat, EtatPassage.enAttente);
     });
 
     test('Station.fromRow reads lines and numeric fares', () {
@@ -188,6 +148,7 @@ void main() {
         () => Louage.fromRow({'id': 'l1', 'immatriculation': 'x'}),
         throwsFormatException,
       );
+      expect(EtatPassage.fromValue('QUITTE'), EtatPassage.quitte);
       expect(
         () => Passage.fromRow({'id': 'p1', 'etat': 'INCONNU'}),
         throwsFormatException,
@@ -203,37 +164,43 @@ void main() {
         find.text("Aucun louage associé, contactez l'agent de station."),
         findsOneWidget,
       );
-      expect(find.text('Scanner le QR de la station'), findsNothing);
+      expect(find.text('Rejoindre la file'), findsNothing);
     });
 
-    testWidgets('louage not in a queue → louage card + scan button', (
-      tester,
-    ) async {
-      await _pumpHome(tester, FakeChauffeurRepository(louage: _louage));
-
-      expect(find.text('123 TU 4567'), findsOneWidget);
-      expect(find.text('Capacité : 8 places'), findsOneWidget);
-      expect(
-        find.widgetWithText(FilledButton, 'Scanner le QR de la station'),
-        findsOneWidget,
-      );
-      expect(find.textContaining('Vous êtes dans la file'), findsNothing);
-    });
-
-    testWidgets('louage in a queue → queue card, no scan button', (
+    testWidgets('louage not in a queue → C1: greeting, louage card, join', (
       tester,
     ) async {
       await _pumpHome(
         tester,
-        FakeChauffeurRepository(louage: _louage, passage: _passage),
+        FakeChauffeurRepository(louage: _louage, prenom: 'Mohamed'),
       );
 
-      expect(find.text('123 TU 4567'), findsOneWidget);
+      expect(find.text('Bonjour Mohamed'), findsOneWidget);
+      expect(find.text('MON LOUAGE'), findsOneWidget);
+      expect(find.text(_plate), findsOneWidget);
+      expect(find.text('8 places'), findsOneWidget);
+      expect(find.text('Hors file'), findsOneWidget);
+      expect(find.text('Arrivé à la station ?'), findsOneWidget);
       expect(
-        find.text('Vous êtes dans la file : Bab Saadoun → Sousse'),
+        find.widgetWithText(LLButton, 'Rejoindre la file'),
         findsOneWidget,
       );
-      expect(find.text('Scanner le QR de la station'), findsNothing);
+      await tester.scrollUntilVisible(find.text('Mes départs'), 200);
+      expect(find.widgetWithText(LLButton, 'Mes départs'), findsOneWidget);
+    });
+
+    testWidgets('louage in a queue → C3, no join button', (tester) async {
+      await _pumpHome(
+        tester,
+        FakeChauffeurRepository(
+          louage: _louage,
+          passage: testPassage,
+          file: testFile(rang: 2),
+        ),
+      );
+
+      expect(find.text('Tunis → Sousse'), findsOneWidget);
+      expect(find.text('Rejoindre la file'), findsNothing);
     });
 
     testWidgets('load error → message and retry', (tester) async {
@@ -248,7 +215,7 @@ void main() {
       repo.error = null;
       await tester.tap(find.text('Réessayer'));
       await tester.pumpAndSettle();
-      expect(find.text('123 TU 4567'), findsOneWidget);
+      expect(find.text(_plate), findsOneWidget);
     });
 
     testWidgets('Arabic: RTL with Arabic plural', (tester) async {
@@ -258,7 +225,7 @@ void main() {
         locale: const Locale('ar'),
       );
 
-      expect(find.text('السعة: 8 مقاعد'), findsOneWidget);
+      expect(find.text('8 مقاعد'), findsOneWidget);
       expect(
         Directionality.of(tester.element(find.byType(ChauffeurHomeScreen))),
         TextDirection.rtl,

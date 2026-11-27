@@ -12,6 +12,7 @@ import '../../features/auth/presentation/profile_error_screen.dart';
 import '../../features/auth/presentation/signup_screen.dart';
 import '../../features/auth/presentation/splash_screen.dart';
 import '../../features/chauffeur/presentation/chauffeur_home_screen.dart';
+import '../../features/chauffeur/presentation/chauffeur_placeholder_screen.dart';
 import '../../features/chauffeur/presentation/scanner_screen.dart';
 import '../../features/voyageur/presentation/voyageur_home_screen.dart';
 import '../dev/dev_gallery_screen.dart';
@@ -25,6 +26,10 @@ abstract final class AppRoutes {
   /// A8 — forced password change (temporary password set by the admin).
   static const changePassword = '/changer-mdp';
   static const chauffeurScanner = '/chauffeur/scanner';
+
+  /// Placeholders: C1 "Mes départs", C4 "Scanner une réservation" (Step 3e).
+  static const chauffeurDeparts = '/chauffeur/departs';
+  static const chauffeurScanReservation = '/chauffeur/scanner-reservation';
 
   /// Widget gallery, registered in debug builds only.
   static const devGallery = '/dev/gallery';
@@ -108,6 +113,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: 'scanner',
             builder: (context, state) => const ScannerScreen(),
+          ),
+          GoRoute(
+            path: 'departs',
+            builder: (context, state) =>
+                ChauffeurPlaceholderScreen(title: (l10n) => l10n.myDepartures),
+          ),
+          GoRoute(
+            path: 'scanner-reservation',
+            builder: (context, state) => ChauffeurPlaceholderScreen(
+              title: (l10n) => l10n.scanReservation,
+            ),
           ),
         ],
       ),

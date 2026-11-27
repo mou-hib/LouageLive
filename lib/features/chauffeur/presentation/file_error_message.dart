@@ -21,6 +21,9 @@ String fileErrorMessage(
         ? l10n.fileErrReservationEnAttente
         : l10n.fileErrReservationEnAttenteJusqua(expiration.toLocal()),
   FileError.placesSousReservations => l10n.fileErrPlacesSousReservations,
+  FileError.louageComplet => l10n.fileErrLouageComplet,
+  FileError.quitterImpossibleEnTete => l10n.fileErrQuitterImpossibleEnTete,
+  FileError.passageDejaTermine => l10n.fileErrPassageDejaTermine,
   FileError.reseau => l10n.loginNetworkError,
   FileError.inconnue => l10n.genericError,
 };

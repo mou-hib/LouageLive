@@ -7,6 +7,7 @@ class Ligne {
     required this.id,
     required this.villeArrivee,
     required this.tarif,
+    this.louagesEnFile = 0,
   });
 
   /// From a `lignes` row (`id, ville_arrivee, tarif`). `tarif` is in TND.
@@ -25,6 +26,16 @@ class Ligne {
 
   /// Official fare in TND (3 decimals = millimes).
   final double tarif;
+
+  /// Louages already in this line's queue (all would be ahead of me).
+  final int louagesEnFile;
+
+  Ligne withLouagesEnFile(int count) => Ligne(
+    id: id,
+    villeArrivee: villeArrivee,
+    tarif: tarif,
+    louagesEnFile: count,
+  );
 }
 
 /// A station found from its QR code, with its active lines.
@@ -62,4 +73,7 @@ class Station {
 
   /// Active lines, sorted by arrival city.
   final List<Ligne> lignes;
+
+  Station withLignes(List<Ligne> lignes) =>
+      Station(id: id, nom: nom, ville: ville, lignes: lignes);
 }

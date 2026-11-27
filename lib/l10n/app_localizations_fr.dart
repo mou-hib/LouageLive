@@ -559,4 +559,231 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get changePwdErrSession =>
       'Votre session a expiré. Reconnectez-vous puis recommencez.';
+
+  @override
+  String ligneLabel(String depart, String arrivee) {
+    return '$depart → $arrivee';
+  }
+
+  @override
+  String get statusHorsFile => 'Hors file';
+
+  @override
+  String chauffeurGreeting(String prenom) {
+    return 'Bonjour $prenom';
+  }
+
+  @override
+  String get chauffeurGreetingNoName => 'Bonjour';
+
+  @override
+  String get myLouage => 'Mon louage';
+
+  @override
+  String louagePlaces(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count places',
+      one: '1 place',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get arrivedAtStation => 'Arrivé à la station ?';
+
+  @override
+  String get arrivedAtStationHint =>
+      'Scannez le QR code affiché au guichet pour rejoindre la file.';
+
+  @override
+  String get joinTheQueue => 'Rejoindre la file';
+
+  @override
+  String get myDepartures => 'Mes départs';
+
+  @override
+  String get chauffeurOfflineBanner =>
+      'Pas de connexion. Les chiffres affichés peuvent être anciens.';
+
+  @override
+  String get close => 'Fermer';
+
+  @override
+  String get enterCode => 'Saisir le code';
+
+  @override
+  String get enterCodeTitle => 'Code de la station';
+
+  @override
+  String get enterCodeHint => 'Code imprimé sous le QR';
+
+  @override
+  String get validate => 'Valider';
+
+  @override
+  String stationRecognized(String nom) {
+    return 'Station $nom reconnue';
+  }
+
+  @override
+  String louagesAhead(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count louages devant vous',
+      one: '1 louage devant vous',
+      zero: 'Aucun louage devant vous',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get enterQueue => 'Entrer dans la file';
+
+  @override
+  String get scanAnother => 'Scanner un autre QR';
+
+  @override
+  String get queueYourPlace => 'Votre place dans la file';
+
+  @override
+  String queueRankOrdinal(int rank) {
+    String _temp0 = intl.Intl.pluralLogic(
+      rank,
+      locale: localeName,
+      other: '${rank}e',
+      one: '1er',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String yourLouage(String plaque) {
+    return 'Votre louage : $plaque';
+  }
+
+  @override
+  String get queueTitle => 'La file';
+
+  @override
+  String get queueYou => 'Vous';
+
+  @override
+  String get queueStayNear =>
+      'Restez près de votre louage. Le téléphone sonne quand vous passez en tête.';
+
+  @override
+  String get leaveQueue => 'Quitter la file';
+
+  @override
+  String get leaveQueueConfirmTitle => 'Quitter la file ?';
+
+  @override
+  String leaveQueueConfirmBody(String plaque) {
+    return '$plaque perdra sa place dans la file.';
+  }
+
+  @override
+  String get headAlertTitle => 'C\'est votre tour !';
+
+  @override
+  String headAlertBody(String ligne) {
+    return 'Votre louage est en tête de la file $ligne.';
+  }
+
+  @override
+  String get headAlertChannel => 'Tête de file';
+
+  @override
+  String headOfQueueSubtitle(String plaque) {
+    return '$plaque · en tête de file';
+  }
+
+  @override
+  String seatsFree(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count places libres',
+      one: '1 place libre',
+      zero: 'Aucune place libre',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String reservationsToScan(int count, DateTime heure) {
+    final intl.DateFormat heureDateFormat = intl.DateFormat.Hm(localeName);
+    final String heureString = heureDateFormat.format(heure);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count réservations à scanner',
+      one: '1 réservation à scanner',
+    );
+    return '$_temp0 · expire à ⁦$heureString⁩';
+  }
+
+  @override
+  String get scanReservation => 'Scanner une réservation';
+
+  @override
+  String get completTitle => 'Louage complet';
+
+  @override
+  String get completPlaceholder =>
+      'L\'écran de départ arrive à la prochaine étape.';
+
+  @override
+  String get retireTitle => 'Louage retiré de la file';
+
+  @override
+  String retireMessage(
+    String station,
+    String plaque,
+    String ligne,
+    DateTime heure,
+  ) {
+    final intl.DateFormat heureDateFormat = intl.DateFormat.Hm(localeName);
+    final String heureString = heureDateFormat.format(heure);
+
+    return 'L\'agent de la station $station a retiré $plaque de la file $ligne à ⁦$heureString⁩.';
+  }
+
+  @override
+  String retireMessageNoTime(String station, String plaque, String ligne) {
+    return 'L\'agent de la station $station a retiré $plaque de la file $ligne.';
+  }
+
+  @override
+  String get retireTalkToAgent => 'Parlez à l\'agent au guichet.';
+
+  @override
+  String get joinAQueue => 'Rejoindre une file';
+
+  @override
+  String get backToHome => 'Retour à l\'accueil';
+
+  @override
+  String get comingSoonTitle => 'Bientôt disponible';
+
+  @override
+  String get fileErrLouageComplet => 'Le louage est déjà complet.';
+
+  @override
+  String get statusQuitte => 'Sorti de la file';
+
+  @override
+  String get leftQueue => 'Vous avez quitté la file.';
+
+  @override
+  String get fileErrQuitterImpossibleEnTete =>
+      'Votre louage est en tête de file : il ne peut plus la quitter. Parlez à l\'agent.';
+
+  @override
+  String get fileErrPassageDejaTermine =>
+      'Votre louage n\'est plus dans cette file.';
 }

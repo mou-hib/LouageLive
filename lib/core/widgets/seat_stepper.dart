@@ -15,6 +15,7 @@ class SeatStepper extends StatelessWidget {
     this.min = 0,
     required this.max,
     required this.onChanged,
+    this.valueStyle,
   });
 
   final int value;
@@ -23,6 +24,10 @@ class SeatStepper extends StatelessWidget {
 
   /// Null disables both keys.
   final ValueChanged<int>? onChanged;
+
+  /// Style of the value between the keys (default [LLText.boardXl]). It is
+  /// scaled down if it would not fit between the two keys.
+  final TextStyle? valueStyle;
 
   void _step(int delta) {
     HapticFeedback.lightImpact();
@@ -50,11 +55,15 @@ class SeatStepper extends StatelessWidget {
             liveRegion: true,
             label: l10n.seatStepperValueA11y(value),
             child: ExcludeSemantics(
-              child: Text(
-                '$value',
-                textAlign: TextAlign.center,
-                textDirection: TextDirection.ltr,
-                style: LLText.boardXl.copyWith(color: c.ink),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  '$value',
+                  key: const ValueKey('seat-stepper-value'),
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.ltr,
+                  style: (valueStyle ?? LLText.boardXl).copyWith(color: c.ink),
+                ),
               ),
             ),
           ),

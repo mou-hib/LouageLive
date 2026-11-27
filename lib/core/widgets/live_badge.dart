@@ -121,10 +121,15 @@ class _LiveBadgeState extends State<LiveBadge>
             ),
           ),
           const SizedBox(width: LLSpace.s4),
-          Text(
-            _text(AppLocalizations.of(context)),
-            style: LLText.caption.copyWith(
-              color: widget.connected ? c.ink : c.inkMuted,
+          // Flexible: ellipsized when the parent caps the width (app bars).
+          Flexible(
+            child: Text(
+              _text(AppLocalizations.of(context)),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: LLText.caption.copyWith(
+                color: widget.connected ? c.ink : c.inkMuted,
+              ),
             ),
           ),
         ],

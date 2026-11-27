@@ -1,7 +1,7 @@
-import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../format/tarif.dart';
 import '../theme/app_theme.dart';
 import '../widgets/ll_app_bar.dart';
 import '../widgets/ll_banner.dart';
@@ -54,9 +54,7 @@ class _DevGalleryScreenState extends State<DevGalleryScreen> {
   Widget _page(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final c = LLColors.of(context);
-    final fare = l10n.tarifDt(
-      NumberFormat('#,##0.000', l10n.localeName).format(9.5),
-    );
+    final fare = formatTarif(l10n, 9.5);
     void noop() {}
 
     return Scaffold(

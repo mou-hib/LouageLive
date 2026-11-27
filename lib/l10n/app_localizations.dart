@@ -494,6 +494,36 @@ abstract class AppLocalizations {
   /// **'Impossible : moins de places que de réservations.'**
   String get fileErrPlacesSousReservations;
 
+  /// Notification TOUR_DE_REMPLIR (chauffeur)
+  ///
+  /// In fr, this message translates to:
+  /// **'C\'est votre tour : votre louage est en tête de file.'**
+  String get notifTourDeRemplir;
+
+  /// Notification RESERVATION_EXPIREE (voyageur)
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre réservation a expiré avant l\'embarquement.'**
+  String get notifReservationExpiree;
+
+  /// Notification RESERVATION_ANNULEE (voyageur, louage retiré)
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre réservation a été annulée : le louage a quitté la file.'**
+  String get notifReservationAnnulee;
+
+  /// Notification RESERVATION_ANNULEE_AGENT (voyageur, autoriser_depart)
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre réservation a été annulée : l\'agent a autorisé le départ du louage.'**
+  String get notifReservationAnnuleeAgent;
+
+  /// Notification d'un type inconnu de cette version
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle notification.'**
+  String get notifInconnue;
+
   /// No description provided for @comingSoon.
   ///
   /// In fr, this message translates to:

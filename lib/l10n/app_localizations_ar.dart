@@ -242,6 +242,22 @@ class AppLocalizationsAr extends AppLocalizations {
       'غير ممكن: عدد المقاعد أقل من عدد الحجوزات.';
 
   @override
+  String get notifTourDeRemplir => 'حان دورك: لواجك في مقدمة الطابور.';
+
+  @override
+  String get notifReservationExpiree => 'انتهت صلاحية حجزك قبل الصعود.';
+
+  @override
+  String get notifReservationAnnulee => 'تم إلغاء حجزك: غادر اللواج الطابور.';
+
+  @override
+  String get notifReservationAnnuleeAgent =>
+      'تم إلغاء حجزك: سمح العون بانطلاق اللواج.';
+
+  @override
+  String get notifInconnue => 'إشعار جديد.';
+
+  @override
   String get comingSoon => 'ستتوفر الميزات في المراحل القادمة.';
 
   @override

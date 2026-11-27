@@ -247,6 +247,25 @@ class AppLocalizationsFr extends AppLocalizations {
       'Impossible : moins de places que de réservations.';
 
   @override
+  String get notifTourDeRemplir =>
+      'C\'est votre tour : votre louage est en tête de file.';
+
+  @override
+  String get notifReservationExpiree =>
+      'Votre réservation a expiré avant l\'embarquement.';
+
+  @override
+  String get notifReservationAnnulee =>
+      'Votre réservation a été annulée : le louage a quitté la file.';
+
+  @override
+  String get notifReservationAnnuleeAgent =>
+      'Votre réservation a été annulée : l\'agent a autorisé le départ du louage.';
+
+  @override
+  String get notifInconnue => 'Nouvelle notification.';
+
+  @override
   String get comingSoon =>
       'Les fonctionnalités arrivent dans les prochains sprints.';
 

@@ -269,8 +269,8 @@ select is((select count(*) from public.notifications), 0::bigint,
 
 -- voyageur2 : notification reçue, et peut réserver à nouveau (P2 en tête)
 set local request.jwt.claims to '{"sub":"aaaaaaaa-0000-0000-0000-000000000002","role":"authenticated"}';
-select is((select type from public.notifications), 'reservation_annulee_agent',
-  'R5: voyageur2 got a reservation_annulee_agent notification');
+select is((select type from public.notifications), 'RESERVATION_ANNULEE_AGENT',
+  'R5: voyageur2 got a RESERVATION_ANNULEE_AGENT notification');
 select is((select donnees ->> 'passage_id' from public.notifications),
   '99999999-0000-0000-0000-000000000001', 'R5: notification carries the passage id');
 select lives_ok($$select public.reserver_place('99999999-0000-0000-0000-000000000002')$$,
